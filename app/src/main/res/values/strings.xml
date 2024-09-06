@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">NotesApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textMainFragmentNotes">Заметки</string>
+    <string name="textAddBTN">Добавить заметку</string>
+    <string name="textSettingNav">Настройки</string>
+    <string name="textSettingName">Настройки</string>
+    <string name="TaskText">Задачи</string>
+    <string name="simbol">|</string>
+    <string name="textNote">Текст заметки</string>
+    <string name="textDate">Дата</string>
+    <string name="nameNote">Название заметки</string>
+    <string name="taskText">Описание задачи</string>
+    <string name="user_name">User Name</string>
+    <string name="NameUser">Имя пользователя:</string>
+</resources>
