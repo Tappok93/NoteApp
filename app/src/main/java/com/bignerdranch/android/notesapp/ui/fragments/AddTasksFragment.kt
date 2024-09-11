@@ -6,17 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bignerdranch.android.notesapp.databinding.FragmentAddNotesBinding
+import com.bignerdranch.android.notesapp.databinding.FragmentAddTasksBinding
 import com.bignerdranch.android.notesapp.databinding.FragmentMainTasksBinding
 
 
 class AddTasksFragment : Fragment() {
-    private lateinit var binding: FragmentMainTasksBinding
+    private lateinit var binding: FragmentAddTasksBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainTasksBinding.inflate(layoutInflater, container, false)
+        binding = FragmentAddTasksBinding.inflate(layoutInflater, container, false)
         return binding.root
 
     }

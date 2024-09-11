@@ -14,4 +14,5 @@
     <string name="taskText">Описание задачи</string>
     <string name="user_name">User Name</string>
     <string name="NameUser">Имя пользователя:</string>
+    <string name="addTask">Добавить задачу</string>
 </resources>

@@ -13,44 +13,6 @@
         android:layout_height="match_parent"
         android:background="#E4E4E4">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#808080"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    android:id="@+id/menuSettingIV"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/notes_icon_btn" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/textMainFragmentNotes"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
         <SearchView
             android:id="@+id/searchSv"
             android:layout_width="match_parent"
@@ -58,9 +20,9 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="#DCDCDC"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+            app:layout_constraintStart_toStartOf="parent">
 
         </SearchView>
 
@@ -87,17 +49,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/menuNavView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/header_menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_navigation" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

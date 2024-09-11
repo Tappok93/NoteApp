@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainNotesFragment"
         android:name="com.bignerdranch.android.notesapp.ui.fragments.MainNotesFragment"
-        android:label="fragment_main_notes"
+        android:label="Заметки"
         tools:layout="@layout/fragment_main_notes" >
         <action
             android:id="@+id/action_mainNotesFragment_to_addNotesFragment"
@@ -20,35 +20,38 @@
     <fragment
         android:id="@+id/addNotesFragment"
         android:name="com.bignerdranch.android.notesapp.ui.fragments.AddNotesFragment"
-        android:label="fragment_add_notes"
+        android:label="Добавление заметки"
         tools:layout="@layout/fragment_add_notes" />
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.bignerdranch.android.notesapp.ui.fragments.SettingFragment"
-        android:label="fragment_setting"
+        android:label="Настройки"
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/mainTasksFragment"
         android:name="com.bignerdranch.android.notesapp.ui.fragments.MainTasksFragment"
-        android:label="fragment_main_tasks"
+        android:label="Задачи"
         tools:layout="@layout/fragment_main_tasks" >
         <action
             android:id="@+id/action_mainTasksFragment_to_addTasksFragment"
             app:destination="@id/addTasksFragment" />
+        <action
+            android:id="@+id/action_mainTasksFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/addTasksFragment"
-        android:name="com.bignerdranch.android.notesapp.ui.fragments.AddTasksFragment"
-        android:label="fragment_add_tasks"
-        tools:layout="@layout/fragment_add_tasks" />
 
     <fragment
         android:id="@+id/noteId"
         android:name="com.bignerdranch.android.notesapp.ui.fragments.MainNotesFragment"
-        android:label="Notes" />
+        android:label="Id Заметки" />
 
     <fragment
         android:id="@+id/taskId"
         android:name="com.bignerdranch.android.notesapp.ui.fragments.MainTasksFragment"
-        android:label="Tasks" />
+        android:label="Id Задачи" />
+    <fragment
+        android:id="@+id/addTasksFragment"
+        android:name="com.bignerdranch.android.notesapp.ui.fragments.AddTasksFragment"
+        android:label="Добавление задачи"
+        tools:layout="@layout/fragment_add_tasks" />
 </navigation>
