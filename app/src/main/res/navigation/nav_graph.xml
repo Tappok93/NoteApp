@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_mainNotesFragment_to_addNotesFragment"
             app:destination="@id/addNotesFragment" />
-        <action
-            android:id="@+id/action_mainNotesFragment_to_settingFragment"
-            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNotesFragment"
@@ -26,7 +23,11 @@
         android:id="@+id/settingFragment"
         android:name="com.bignerdranch.android.notesapp.ui.fragments.SettingFragment"
         android:label="Настройки"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_mainNotesFragment"
+            app:destination="@id/mainNotesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mainTasksFragment"
         android:name="com.bignerdranch.android.notesapp.ui.fragments.MainTasksFragment"
@@ -35,9 +36,6 @@
         <action
             android:id="@+id/action_mainTasksFragment_to_addTasksFragment"
             app:destination="@id/addTasksFragment" />
-        <action
-            android:id="@+id/action_mainTasksFragment_to_settingFragment"
-            app:destination="@id/settingFragment" />
     </fragment>
 
     <fragment

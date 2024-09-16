@@ -1,8 +1,7 @@
-package com.bignerdranch.android.notesapp.data
+package com.bignerdranch.android.notesapp.data.database.room_database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.Date
 
 @Entity(tableName = "TableTask")
 data class BaseTask(

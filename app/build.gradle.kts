@@ -48,10 +48,19 @@ android {
 
 dependencies {
 
-    //Room database
     val room_version = "2.6.1"
-    implementation ("androidx.room:room-runtime:$room_version")
-    implementation ("androidx.room:room-ktx:$room_version")
+
+    //Push уведомления
+    implementation ("androidx.core:core-ktx:1.10.1")
+    implementation ("androidx.core:core:1.9.0")
+
+
+    //Room database
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10")
 
     //Navigation
     implementation ("androidx.navigation:navigation-fragment-ktx:2.6.0")
