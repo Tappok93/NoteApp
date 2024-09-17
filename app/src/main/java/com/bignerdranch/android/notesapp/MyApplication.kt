@@ -1,4 +1,4 @@
-package com.bignerdranch.android.notesapp.ui.context
+package com.bignerdranch.android.notesapp
 
 import android.app.Application
 import android.content.Context

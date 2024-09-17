@@ -1,7 +1,7 @@
 package com.bignerdranch.android.notesapp.domain.usecase
 
 import androidx.lifecycle.LiveData
-import com.bignerdranch.android.notesapp.data.database.room_database.BaseNote
+import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
 import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
 
 class GetNoteInfoFromDatabaseUseCase(private val repositoryImpl: DatabaseRepositoryImpl) {
@@ -9,7 +9,7 @@ class GetNoteInfoFromDatabaseUseCase(private val repositoryImpl: DatabaseReposit
     /**
      * Получение списка заметок
      */
-     fun getNoteFromDatabaseUseCase(): LiveData<List<BaseNote>> {
+     fun getNoteFromDatabaseUseCase(): LiveData<List<NoteEntity>> {
         return repositoryImpl.getNoteFromDatabase()
     }
 }

@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.databinding.FragmentAddNotesBinding
 import com.bignerdranch.android.notesapp.ui.view_model.NoteViewModel
+import com.bignerdranch.android.notesapp.utils.UtilsApp
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.Date
 
 
@@ -26,7 +28,7 @@ class AddNotesFragment : Fragment() {
     ): View {
         noteViewModel = ViewModelProvider(this)[NoteViewModel::class.java]
         binding = FragmentAddNotesBinding.inflate(layoutInflater, container, false)
-        noteViewModel.createNotificationChannel(requireContext())
+        UtilsApp.createNotificationChannel(requireContext())
         setHasOptionsMenu(true)
 
         return binding.root
@@ -34,6 +36,20 @@ class AddNotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //Скрываем BottomNavigationView
+        val bottomNavView = activity?.
+        findViewById<BottomNavigationView>(R.id.bottomNav)
+        UtilsApp.bottomNavVisibility(bottomNavView, View.GONE)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        //Отображаем BottomNavigationView
+        val bottomNavView = activity?.
+        findViewById<BottomNavigationView>(R.id.bottomNav)
+        UtilsApp.bottomNavVisibility(bottomNavView, View.VISIBLE)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -45,15 +61,20 @@ class AddNotesFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.save -> {
-                val textNote = binding.textNote.text.toString()
-                val dataNote = Date()
-                val newNote = noteViewModel.createNoteObj(textNote, dataNote)
+
+                val newNote = noteViewModel.createNoteObj(
+                    binding.textNote.text.toString(),
+                    binding.textHeaderNote.text.toString(),
+                    UtilsApp.formatDate(Date())
+                )
 
                 noteViewModel.insertNote(newNote)
-                noteViewModel.sendPushInfo(requireContext())
+                UtilsApp.sendPushInfo(
+                    requireContext(),
+                    R.string.TextHeaderNote.toString(),
+                    R.string.TextBodyNote.toString()
+                )
                 binding.textNote.text.clear()
-
-
                 true
             }
 

@@ -1,6 +1,6 @@
 package com.bignerdranch.android.notesapp.domain.usecase
 
-import com.bignerdranch.android.notesapp.data.database.room_database.BaseNote
+import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
 import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
 
 class DeleteNoteInfoFromDatabaseUseCase(private val repositoryImpl: DatabaseRepositoryImpl) {
@@ -8,7 +8,7 @@ class DeleteNoteInfoFromDatabaseUseCase(private val repositoryImpl: DatabaseRepo
     /**
      *  Удаления заметки
      */
-   suspend fun deleteNoteInDatabaseUseCase(nameNote: BaseNote)  {
+   suspend fun deleteNoteInDatabaseUseCase(nameNote: NoteEntity)  {
        repositoryImpl.deleteNoteInDatabase(nameNote)
    }
 }

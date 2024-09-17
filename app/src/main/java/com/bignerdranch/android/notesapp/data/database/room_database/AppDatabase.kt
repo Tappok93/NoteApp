@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
+import com.bignerdranch.android.notesapp.data.database.room_database.entitys.TaskEntity
 
-@Database(entities = [BaseNote::class, BaseTask::class], version = 1)
-@TypeConverters(TypeConverter::class)
+@Database(entities = [NoteEntity::class, TaskEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getBaseDao(): BaseDao
 

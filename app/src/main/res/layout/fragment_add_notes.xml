@@ -10,26 +10,31 @@
 
     <EditText
         android:id="@+id/textNote"
-        android:layout_width="394dp"
-        android:layout_height="375dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="398dp"
+        android:layout_height="353dp"
         android:gravity="center"
-        android:hint="Введите название заметки"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        android:hint="Введите текст заметки"
+        app:layout_constraintBottom_toTopOf="@+id/textHeaderNote"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.811" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="165dp"
-        android:text="Текст заметки"
+    <EditText
+        android:id="@+id/textHeaderNote"
+        android:layout_width="383dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="215dp"
+        android:gravity="center"
+        android:hint="Введите текст заголовка"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

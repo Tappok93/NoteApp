@@ -15,12 +15,16 @@ import com.bignerdranch.android.notesapp.databinding.FragmentAddTasksBinding
 import com.bignerdranch.android.notesapp.databinding.FragmentMainTasksBinding
 import com.bignerdranch.android.notesapp.ui.view_model.NoteViewModel
 import com.bignerdranch.android.notesapp.ui.view_model.TaskViewModel
+import com.bignerdranch.android.notesapp.utils.UtilsApp
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.Date
 
 
 class AddTasksFragment : Fragment() {
     private lateinit var taskViewModel: TaskViewModel
     private lateinit var binding: FragmentAddTasksBinding
+    private val bottomNavView = activity?.
+    findViewById<BottomNavigationView>(R.id.bottomNav)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +32,7 @@ class AddTasksFragment : Fragment() {
     ): View {
         binding = FragmentAddTasksBinding.inflate(layoutInflater, container, false)
         taskViewModel = ViewModelProvider(this)[TaskViewModel::class.java]
-        taskViewModel.createNotificationChannel(requireContext())
+        UtilsApp.createNotificationChannel(requireContext())
         setHasOptionsMenu(true)
         return binding.root
 
@@ -36,6 +40,20 @@ class AddTasksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //Скрываем BottomNavigationView
+        val bottomNavView = activity?.
+        findViewById<BottomNavigationView>(R.id.bottomNav)
+        UtilsApp.bottomNavVisibility(bottomNavView, View.GONE)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        //Отображаем BottomNavigationView
+        val bottomNavView = activity?.
+        findViewById<BottomNavigationView>(R.id.bottomNav)
+        UtilsApp.bottomNavVisibility(bottomNavView, View.VISIBLE)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -50,10 +68,12 @@ class AddTasksFragment : Fragment() {
                 val newTask = taskViewModel.createTaskObj(textTask)
 
                 taskViewModel.insertTask(newTask)
-                taskViewModel.sendPushInfo(requireContext())
+                UtilsApp.sendPushInfo(
+                    requireContext(),
+                    R.string.TextHeaderTask.toString(),
+                    R.string.TextBodyTask.toString()
+                )
                 binding.textTask.text.clear()
-
-
                 true
             }
 

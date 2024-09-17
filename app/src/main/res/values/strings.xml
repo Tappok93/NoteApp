@@ -15,4 +15,8 @@
     <string name="user_name">User Name</string>
     <string name="NameUser">Имя пользователя:</string>
     <string name="addTask">Добавить задачу</string>
+    <string name="TextHeaderNote">Информация о заметке</string>
+    <string name="TextBodyNote">Заметка успешно сохранена.</string>
+    <string name="TextHeaderTask">Информация о задаче</string>
+    <string name="TextBodyTask">Задача успешно сохранена.</string>
 </resources>

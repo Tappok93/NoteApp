@@ -1,14 +1,14 @@
 package com.bignerdranch.android.notesapp.domain.interfaceDatabaseRepositiry
 
 import androidx.lifecycle.LiveData
-import com.bignerdranch.android.notesapp.data.database.room_database.BaseNote
-import com.bignerdranch.android.notesapp.data.database.room_database.BaseTask
+import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
+import com.bignerdranch.android.notesapp.data.database.room_database.entitys.TaskEntity
 
 interface DatabaseRepository {
-    suspend fun insertNoteInDatabase(infoNote: BaseNote)
-    suspend fun insertTaskInDatabase(infoTask: BaseTask)
-    suspend fun deleteNoteInDatabase(nameNote: BaseNote)
-    suspend fun deleteTaskInDatabase(nameTask: BaseTask)
-    fun getNoteFromDatabase(): LiveData<List<BaseNote>>
-    fun getTaskFromDatabase(): LiveData<List<BaseTask>>
+    suspend fun insertNoteInDatabase(infoNote: NoteEntity)
+    suspend fun insertTaskInDatabase(infoTask: TaskEntity)
+    suspend fun deleteNoteInDatabase(nameNote: NoteEntity)
+    suspend fun deleteTaskInDatabase(nameTask: TaskEntity)
+    fun getNoteFromDatabase(): LiveData<List<NoteEntity>>
+    fun getTaskFromDatabase(): LiveData<List<TaskEntity>>
 }
