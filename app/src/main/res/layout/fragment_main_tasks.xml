@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.MainTasksFragment"
+    android:layout_gravity="center"
+    tools:context=".ui.fragments.MainTaskFragment"
     android:background="#E4E4E4">
 
 
@@ -23,9 +24,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="391dp"
-        android:layout_height="400dp"
+        android:layout_width="400dp"
+        android:layout_height="510dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +37,7 @@
         android:id="@+id/addTaskBTN"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:backgroundTint="#C3C2C2"
+        android:backgroundTint="#E19D2A"
         android:text="@string/addTask"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"

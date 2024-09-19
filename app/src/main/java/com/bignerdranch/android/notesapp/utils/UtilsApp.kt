@@ -1,6 +1,7 @@
 package com.bignerdranch.android.notesapp.utils
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -39,7 +40,7 @@ class UtilsApp {
          * Создаём Push уведомление
          */
         fun sendPushInfo(context: Context, textPushHeader: String, textPushBody: String) {
-            val builder = NotificationCompat.Builder(context, "my_channel_id")
+            val builder = NotificationCompat.Builder(context, "my_channel")
                 .setSmallIcon(R.drawable.notes_icon_btn)
                 .setContentTitle(textPushHeader)
                 .setContentText(textPushBody)
@@ -61,6 +62,7 @@ class UtilsApp {
         /**
          * Метод для форматирования Data в нужный визуальный формат
          */
+        @SuppressLint("SimpleDateFormat")
         fun formatDate(date: Date): String {
             val formatter = SimpleDateFormat("dd.MM.yyyy 'time:' HH:mm:ss")
             return formatter.format(date)

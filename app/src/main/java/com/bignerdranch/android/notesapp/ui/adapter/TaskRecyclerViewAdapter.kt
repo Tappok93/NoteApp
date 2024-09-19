@@ -11,13 +11,29 @@ import com.bignerdranch.android.notesapp.databinding.ElementRecyclerTaskBinding
 
 class TaskRecyclerViewAdapter(private var myListTask: List<TaskEntity>) :
     RecyclerView.Adapter<TaskRecyclerViewAdapter.ItemViewHolder>() {
+    private var infoListener: InfoTaskItemClickListener? = null
+
+    fun setInfoListener(listener: InfoTaskItemClickListener) {
+        infoListener = listener
+    }
+
+    /**
+     * Интерфейс для обработки нажатий на элементы списка
+     */
+    interface InfoTaskItemClickListener {
+        fun onItemClickListener(taskEntity: TaskEntity)
+    }
 
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val bindingAdapter = ElementRecyclerTaskBinding.bind(itemView)
 
-        fun setData(baseTask: TaskEntity) {
+        fun setData(baseTask: TaskEntity, listener: InfoTaskItemClickListener?) {
             bindingAdapter.textTaskElement.text = baseTask.nameTask
+
+            bindingAdapter.elementTaskRV.setOnClickListener {
+                listener?.onItemClickListener(baseTask)
+            }
         }
     }
 
@@ -42,9 +58,12 @@ class TaskRecyclerViewAdapter(private var myListTask: List<TaskEntity>) :
      */
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val baseCityItem = myListTask[position]
-        holder.setData(baseCityItem)
+        holder.setData(baseCityItem, infoListener)
     }
 
+    /**
+     * Обновление списка
+     */
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(listItem: List<TaskEntity>) {
         myListTask = listItem

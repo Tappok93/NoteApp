@@ -8,6 +8,8 @@ import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
 import com.bignerdranch.android.notesapp.domain.usecase.DeleteNoteInfoFromDatabaseUseCase
 import com.bignerdranch.android.notesapp.domain.usecase.GetNoteInfoFromDatabaseUseCase
 import com.bignerdranch.android.notesapp.domain.usecase.InsertNoteInfoFromDatabaseUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import java.util.Date
 
@@ -44,7 +46,8 @@ class NoteViewModel : ViewModel() {
      * Создание объекта заметка
      */
     fun createNoteObj(nameNote: String, nameHeaderNote: String, date: String): NoteEntity {
-        val noteObj = NoteEntity(id = 0, nameNote = nameNote, nameHeaderNote = nameHeaderNote, date = date )
+        val noteObj =
+            NoteEntity(id = 0, nameNote = nameNote, nameHeaderNote = nameHeaderNote, date = date)
         return noteObj
     }
 }

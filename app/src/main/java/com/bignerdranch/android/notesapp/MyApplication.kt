@@ -2,8 +2,6 @@ package com.bignerdranch.android.notesapp
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
-
 class MyApplication : Application() {
     companion object {
         private lateinit var instance: MyApplication
@@ -16,6 +14,5 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        Log.d("MyActivity", "onCreate() вызван")
     }
 }

@@ -1,14 +1,8 @@
 package com.bignerdranch.android.notesapp.ui.fragments
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -17,8 +11,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bignerdranch.android.notesapp.R
-import com.bignerdranch.android.notesapp.data.database.shared_preferences.PreferencesBase
 import com.bignerdranch.android.notesapp.databinding.ActivityMainBinding
+import com.bignerdranch.android.notesapp.utils.UtilsApp
 
 class MainActivity : AppCompatActivity() {
     private lateinit var configuration: AppBarConfiguration
@@ -30,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         bindingActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindingActivityMainBinding.root)
         setSupportActionBar(bindingActivityMainBinding.contentMain.appBar.toolbar2)
+        UtilsApp.createNotificationChannel(this)
         navController = findNavController(R.id.fragmentContainerView)
 
         // Отключаем свап вызова меню из фрагмента
@@ -48,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         bindingActivityMainBinding.navView.setupWithNavController(navController)
 
         /**
-         * Обработка нажатий на элементы BootomNavigation
+         * Обработка нажатий на элементы BottomNavigation   setVisibility - реализовать
          */
         bindingActivityMainBinding.contentMain.bottomNav.setOnItemSelectedListener { item ->
             onBottomNavItemSelected(item)
@@ -63,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Функция обработки нажатий на элементы BootomNavigation
+     * Функция обработки нажатий на элементы BottomNavigation
      */
     private fun onBottomNavItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

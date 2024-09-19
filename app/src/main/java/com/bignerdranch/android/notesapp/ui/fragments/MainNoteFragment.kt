@@ -10,16 +10,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.notesapp.R
+import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
 import com.bignerdranch.android.notesapp.databinding.FragmentMainNotesBinding
 import com.bignerdranch.android.notesapp.ui.adapter.NoteRecyclerViewAdapter
 import com.bignerdranch.android.notesapp.ui.view_model.NoteViewModel
 
 
-class MainNotesFragment : Fragment() {
+class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickListener {
     private lateinit var binding: FragmentMainNotesBinding
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: NoteRecyclerViewAdapter
     private lateinit var noteViewModel: NoteViewModel
+    private val bundle = Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +35,7 @@ class MainNotesFragment : Fragment() {
 
         adapter = NoteRecyclerViewAdapter(emptyList())
         recycler.adapter = adapter
+        adapter.setInfoListener(this)
 
         noteViewModel.allNotes.observe(
             viewLifecycleOwner
@@ -55,7 +58,16 @@ class MainNotesFragment : Fragment() {
         binding.addNoteBTN.setOnClickListener {
             findNavController().navigate(R.id.action_mainNotesFragment_to_addNotesFragment)
         }
+    }
 
+    /**
+     * Передача данных и переход на другой фрагмент по Bundle
+     */
+    override fun onItemClickListener(noteEntity: NoteEntity) {
+        bundle.putString("nameHeaderNote", noteEntity.nameHeaderNote)
+        bundle.putString("nameBodyNote", noteEntity.nameNote)
+        bundle.putString("dataNote", noteEntity.date)
+        findNavController().navigate(R.id.action_mainNotesFragment_to_editNoteFragment, bundle)
     }
 
 }

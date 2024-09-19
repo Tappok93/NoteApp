@@ -2,7 +2,6 @@ package com.bignerdranch.android.notesapp.data.database.room_database.entitys
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.Date
 
 @Entity(tableName = "TableNote")
 data class NoteEntity(

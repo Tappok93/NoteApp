@@ -35,7 +35,14 @@ interface BaseDao {
      */
     @Delete
     suspend fun deleteInfoBaseNote(nameNote: NoteEntity)
+
     @Delete
     suspend fun deleteInfoBaseTask(nameTask: TaskEntity)
+
+    /**
+     * Метод удаления заметки по наиминованию из списка базы данных
+     */
+//    @Query("DELETE FROM TableNote WHERE nameNote = :nameNote")
+//    suspend fun deleteNoteByName(nameNote: String)
 
 }

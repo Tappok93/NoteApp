@@ -1,18 +1,8 @@
 package com.bignerdranch.android.notesapp.ui.view_model
 
-import android.Manifest
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.content.pm.PackageManager
-import android.os.Build
-import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.data.database.room_database.entitys.TaskEntity
 import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
 import com.bignerdranch.android.notesapp.domain.usecase.DeleteTaskInfoFromDatabaseUseCase

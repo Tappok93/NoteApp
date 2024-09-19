@@ -11,15 +11,30 @@ import com.bignerdranch.android.notesapp.databinding.ElementRecyclerNoteBinding
 
 class NoteRecyclerViewAdapter(private var myListNote: List<NoteEntity>) :
     RecyclerView.Adapter<NoteRecyclerViewAdapter.ItemViewHolder>() {
+    private var infoListener: InfoNoteItemClickListener? = null
 
+    fun setInfoListener(listener: InfoNoteItemClickListener) {
+        infoListener = listener
+    }
+
+    /**
+     * Интерфейс для обработки нажатий на элементы списка
+     */
+    interface InfoNoteItemClickListener {
+        fun onItemClickListener(noteEntity: NoteEntity)
+    }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val bindingAdapter = ElementRecyclerNoteBinding.bind(itemView)
 
-        fun setData(baseNote: NoteEntity) {
-            bindingAdapter.dataElementNote.text = baseNote.date
+        fun setData(baseNote: NoteEntity, listener: InfoNoteItemClickListener?) {
             bindingAdapter.textNoteElement.text = baseNote.nameNote
             bindingAdapter.textHeaderElementNote.text = baseNote.nameHeaderNote
+            bindingAdapter.dataElementNote.text = baseNote.date
+
+            bindingAdapter.elementNoteRV.setOnClickListener {
+                listener?.onItemClickListener(baseNote)
+            }
         }
     }
 
@@ -44,9 +59,12 @@ class NoteRecyclerViewAdapter(private var myListNote: List<NoteEntity>) :
      */
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val baseCityItem = myListNote[position]
-        holder.setData(baseCityItem)
+        holder.setData(baseCityItem, infoListener)
     }
 
+    /**
+     * Обновление списка
+     */
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(listItem: List<NoteEntity>) {
         myListNote = listItem
