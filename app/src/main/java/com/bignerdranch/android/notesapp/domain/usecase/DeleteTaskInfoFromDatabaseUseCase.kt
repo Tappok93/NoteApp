@@ -8,7 +8,7 @@ class DeleteTaskInfoFromDatabaseUseCase(private val repositoryImpl: DatabaseRepo
     /**
      *  Удаления задачи
      */
-    suspend fun deleteTaskInDatabaseUseCase(nameTask: TaskEntity) {
-        repositoryImpl.deleteTaskInDatabase(nameTask)
+    suspend fun deleteTaskInDatabaseUseCase(id: Int) {
+        repositoryImpl.deleteByIdTaskInDatabase(id)
     }
 }

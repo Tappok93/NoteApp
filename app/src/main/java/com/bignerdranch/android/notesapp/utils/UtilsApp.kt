@@ -2,6 +2,7 @@ package com.bignerdranch.android.notesapp.utils
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -10,10 +11,13 @@ import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.bignerdranch.android.notesapp.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class UtilsApp {
     companion object {
@@ -39,7 +43,18 @@ class UtilsApp {
         /**
          * Создаём Push уведомление
          */
-        fun sendPushInfo(context: Context, textPushHeader: String, textPushBody: String) {
+        fun sendPushInfo(fragment: Fragment, textPushHeader: String, textPushBody: String) {
+            val context = fragment.requireContext()
+
+            //Проверка на разрешение отправлять уведомления
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                fragment.requestPermissions(
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    1
+                )
+                return
+            }
+
             val builder = NotificationCompat.Builder(context, "my_channel")
                 .setSmallIcon(R.drawable.notes_icon_btn)
                 .setContentTitle(textPushHeader)
@@ -64,8 +79,8 @@ class UtilsApp {
          */
         @SuppressLint("SimpleDateFormat")
         fun formatDate(date: Date): String {
-            val formatter = SimpleDateFormat("dd.MM.yyyy 'time:' HH:mm:ss")
-            return formatter.format(date)
+            val dateFormat = SimpleDateFormat("d MMMM yyyy '|' 'время' HH:mm:ss", Locale("ru"))
+            return dateFormat.format(date)
         }
 
         /**

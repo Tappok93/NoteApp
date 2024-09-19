@@ -8,10 +8,13 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.data.database.shared_preferences.PreferencesBase
 import com.bignerdranch.android.notesapp.databinding.FragmentSettingBinding
+import com.bignerdranch.android.notesapp.ui.view_model.UserViewModel
 import com.bignerdranch.android.notesapp.utils.UtilsApp
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -19,14 +22,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 @Suppress("DEPRECATION")
 class SettingFragment : Fragment() {
     private lateinit var binding: FragmentSettingBinding
-    //private lateinit var bindingMenu: HeaderMenuBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSettingBinding.inflate(layoutInflater, container, false)
-        //  bindingMenu = HeaderMenuBinding.inflate(layoutInflater, container, false)
         setHasOptionsMenu(true)
 
         return binding.root
@@ -36,17 +37,6 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Скрываем BottomNavigationView
-        val bottomNavView = activity?.findViewById<BottomNavigationView>(R.id.bottomNav)
-        UtilsApp.bottomNavVisibility(bottomNavView, View.GONE)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        //Отображаем BottomNavigationView
-        val bottomNavView = activity?.findViewById<BottomNavigationView>(R.id.bottomNav)
-        UtilsApp.bottomNavVisibility(bottomNavView, View.VISIBLE)
     }
 
     @Deprecated("Deprecated in Java")
@@ -64,19 +54,16 @@ class SettingFragment : Fragment() {
         return when (item.itemId) {
             R.id.save -> {
 
-                //Получение доступа к элементу NavigationDrawer
-                val textUserName =
-                    LayoutInflater.from(requireContext()).inflate(R.layout.header_menu, null)
-                        .findViewById<TextView>(R.id.textUserName)
-
                 //Сохранение UserName в SharedPreference
                 PreferencesBase.saveUserName(
                     requireContext(),
                     binding.nameSettingET.text.toString()
                 )
-                //Получения UserName из SharedPreference и назначение элементу UseName
-                textUserName.text = PreferencesBase.getUserName(requireContext())
-                binding.nameSettingET.setText("")
+
+                // Обновление имени пользователя в ViewModel
+                (requireActivity() as MainActivity).userViewModel.
+                setUserName(binding.nameSettingET.text.toString())
+
                 //Переход на главный фрагмент при обработке нажатия.
                 requireActivity().supportFragmentManager.popBackStack()
                 true

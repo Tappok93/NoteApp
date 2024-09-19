@@ -15,11 +15,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.databinding.FragmentAddTasksBinding
 import com.bignerdranch.android.notesapp.ui.view_model.TaskViewModel
 import com.bignerdranch.android.notesapp.utils.UtilsApp
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
 
 
 @Suppress("DEPRECATION")
@@ -41,18 +43,6 @@ class AddTaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //Скрываем BottomNavigationView
-        val bottomNavView = activity?.findViewById<BottomNavigationView>(R.id.bottomNav)
-        UtilsApp.bottomNavVisibility(bottomNavView, View.GONE)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        //Отображаем BottomNavigationView
-        val bottomNavView = activity?.findViewById<BottomNavigationView>(R.id.bottomNav)
-        UtilsApp.bottomNavVisibility(bottomNavView, View.VISIBLE)
     }
 
     @Deprecated("Deprecated in Java")
@@ -67,37 +57,28 @@ class AddTaskFragment : Fragment() {
         return when (item.itemId) {
             R.id.save -> {
 
-                if (context?.let {
-                        ContextCompat.checkSelfPermission(
-                            it,
-                            Manifest.permission.POST_NOTIFICATIONS
-                        )
-                    } != PackageManager.PERMISSION_GRANTED
-                ) {
-                    // Разрешение на отправку уведомлений не предоставлено, показываем диалоговое окно с запросом на предоставление разрешения
-                    ActivityCompat.requestPermissions(
-                        requireActivity(),
-                        arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                        1
-                    )
-                    return true
+                // Создаём объект новой задачи
+                val newTask = taskViewModel.createTaskObj(binding.textTask.text.toString())
+
+                //Вставка задачи в БД
+                lifecycleScope.launch {
+                    taskViewModel.insertTask(newTask)
                 }
 
-                val textTask = binding.textTask.text.toString()
-                val newTask = taskViewModel.createTaskObj(textTask)
-
-                taskViewModel.insertTask(newTask)
+                //Отправка уведомления
                 UtilsApp.sendPushInfo(
-                    requireContext(),
+                    this,
                     getString(R.string.TextHeaderTask),
                     getString(R.string.TextBodyTask)
                 )
+
+                //Очищаем поле ввода
                 binding.textTask.text.clear()
 
+                //Переход на предыдущий фрагмент стека
                 requireActivity().supportFragmentManager.popBackStack()
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }

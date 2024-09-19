@@ -14,11 +14,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.databinding.FragmentAddNotesBinding
 import com.bignerdranch.android.notesapp.ui.view_model.NoteViewModel
 import com.bignerdranch.android.notesapp.utils.UtilsApp
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
 import java.util.Date
 
 
@@ -41,18 +43,6 @@ class AddNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //Скрываем BottomNavigationView
-        val bottomNavView = activity?.findViewById<BottomNavigationView>(R.id.bottomNav)
-        UtilsApp.bottomNavVisibility(bottomNavView, View.GONE)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        //Отображаем BottomNavigationView
-        val bottomNavView = activity?.findViewById<BottomNavigationView>(R.id.bottomNav)
-        UtilsApp.bottomNavVisibility(bottomNavView, View.VISIBLE)
     }
 
     @Deprecated("Deprecated in Java")
@@ -67,38 +57,29 @@ class AddNoteFragment : Fragment() {
         return when (item.itemId) {
             R.id.save -> {
 
-                //Проверка разрешения на отправку уведомлений
-                if (context?.let {
-                        ContextCompat.checkSelfPermission(
-                            it,
-                            Manifest.permission.POST_NOTIFICATIONS
-                        )
-                    } != PackageManager.PERMISSION_GRANTED
-                ) {
-                    // Разрешение на отправку уведомлений не предоставлено, показываем диалоговое окно с запросом на предоставление разрешения
-                    ActivityCompat.requestPermissions(
-                        requireActivity(),
-                        arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                        1
-                    )
-                    return true
-                }
-
                 // Создаём объект новой заметки
                 val newNote = noteViewModel.createNoteObj(
                     binding.textNote.text.toString(),
                     binding.textHeaderNote.text.toString(),
                     UtilsApp.formatDate(Date())
                 )
+
+                //Вставка заметки в БД
+                lifecycleScope.launch {
+                    noteViewModel.insertNote(newNote)
+                }
+
                 //Отправка уведомления
-                noteViewModel.insertNote(newNote)
                 UtilsApp.sendPushInfo(
-                    requireContext(),
-                   getString(R.string.TextHeaderNote),
-                   getString(R.string.TextBodyNote)
+                    this,
+                    getString(R.string.TextHeaderNote),
+                    getString(R.string.TextBodyNote)
                 )
+
+                //Очищаем поле ввода
                 binding.textNote.text.clear()
 
+                //Переход на предыдущий фрагмент стека
                 requireActivity().supportFragmentManager.popBackStack()
                 true
             }

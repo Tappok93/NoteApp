@@ -34,17 +34,17 @@ class DatabaseRepositoryImpl : DatabaseRepository {
     }
 
     /**
-     * Удаление информации по заметке из базы данных
+     * Удаление заметки по ID
      */
-    override suspend fun deleteNoteInDatabase(nameNote: NoteEntity) {
-        baseDao.deleteInfoBaseNote(nameNote)
+    override suspend fun deleteByIdNoteInDatabase(id: Int) {
+        baseDao.deleteNoteByName(id)
     }
 
     /**
-     * Удаление информации по задаче из базы данных
+     * Удаление задачи по ID
      */
-    override suspend fun deleteTaskInDatabase(nameTask: TaskEntity) {
-        baseDao.deleteInfoBaseTask(nameTask)
+    override suspend fun deleteByIdTaskInDatabase(id: Int) {
+        baseDao.deleteTaskByName(id)
     }
 
     /**
@@ -59,5 +59,19 @@ class DatabaseRepositoryImpl : DatabaseRepository {
      */
     override fun getTaskFromDatabase(): LiveData<List<TaskEntity>> {
         return baseDao.getInfoTask()
+    }
+
+    /**
+     * Получение объекта заметка по id
+     */
+    override suspend fun getNoteById(id: Int): NoteEntity? {
+        return baseDao.getNoteById(id)
+    }
+
+    /**
+     * Получение объекта задача по id
+     */
+    override suspend fun getTaskById(id: Int): TaskEntity? {
+        return baseDao.getTaskById(id)
     }
 }

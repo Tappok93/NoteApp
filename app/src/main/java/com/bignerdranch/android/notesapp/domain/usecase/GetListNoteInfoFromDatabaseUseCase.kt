@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
 import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
 
-class GetNoteInfoFromDatabaseUseCase(private val repositoryImpl: DatabaseRepositoryImpl) {
+class GetListNoteInfoFromDatabaseUseCase(private val repositoryImpl: DatabaseRepositoryImpl) {
 
     /**
      * Получение списка заметок

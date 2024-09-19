@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.bignerdranch.android.notesapp.data.database.room_database.entitys.TaskEntity
 import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
 
-class GetTaskInfoFromDatabaseUseCase(private val repositoryImpl: DatabaseRepositoryImpl) {
+class GetListTaskInfoFromDatabaseUseCase(private val repositoryImpl: DatabaseRepositoryImpl) {
 
     /**
      * Получение списка задач

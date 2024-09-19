@@ -9,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
 import com.bignerdranch.android.notesapp.databinding.EditNoteFragmentBinding
 import com.bignerdranch.android.notesapp.ui.view_model.NoteViewModel
+import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
 class EditNoteFragment : Fragment() {
@@ -26,40 +28,47 @@ class EditNoteFragment : Fragment() {
         binding = EditNoteFragmentBinding.inflate(layoutInflater, container, false)
         noteViewModel = ViewModelProvider(this)[NoteViewModel::class.java]
         setHasOptionsMenu(true)
+
+        //Ловим во фрагменте данные переданные по Bundle и присваиваем элементам фрагмента
+        val id = arguments?.getInt("Id")
+        lifecycleScope.launch {
+            id?.let {
+                val objectNote = noteViewModel.getObjectNoteById(it)
+                binding.editHeaderNoteTV.text = objectNote?.nameHeaderNote ?: "No Header"
+                val textBodyNote = objectNote?.nameNote
+                binding.editBodyNoteET.setText(textBodyNote)
+            }
+        }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //Ловим во фрагменте данные переданные по Bundle и присваиваем элементам фрагмента
-        binding.editHeaderNoteTV.text = arguments?.getString("nameHeaderNote")
-        val textBodyNote = arguments?.getString("nameBodyNote")
-        binding.editBodyNoteET.setText(textBodyNote)
     }
 
+    /**
+     * Раздуваем созданное меню для удаления заметки
+     */
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.delete_bottom_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    /**
+     * Удаление заметки за базы данных
+     */
     @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.delete -> {
-
-                val data = arguments?.getString("dataNote")
-                val noteEntity = noteViewModel.createNoteObj(
-                    binding.editHeaderNoteTV.text.toString(),
-                    binding.editHeaderNoteTV.text.toString(),
-                    data.toString()
-                )
-                noteViewModel.deleteNoteByName(noteEntity)
+                lifecycleScope.launch {
+                    arguments?.getInt("Id")?.let { noteViewModel.deleteObjectNoteByIdUseCase(it) }
+                }
                 requireActivity().supportFragmentManager.popBackStack()
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }

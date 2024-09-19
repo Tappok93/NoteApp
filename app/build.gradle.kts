@@ -50,6 +50,9 @@ dependencies {
 
     val room_version = "2.6.1"
 
+//    //Библиотека для форматирования даты
+//    implementation ("com.jakewharton.threetenabp:threetenabp:1.3.1")
+
     //Push уведомления
     implementation ("androidx.core:core-ktx:1.10.1")
     implementation ("androidx.core:core:1.9.0")

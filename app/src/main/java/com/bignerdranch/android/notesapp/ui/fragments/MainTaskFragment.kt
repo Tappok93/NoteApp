@@ -63,7 +63,7 @@ class MainTaskFragment : Fragment(), TaskRecyclerViewAdapter.InfoTaskItemClickLi
      * Передача данных и переход на другой фрагмент по Bundle
      */
     override fun onItemClickListener(taskEntity: TaskEntity) {
-        bundle.putString("nameBodyTask", taskEntity.nameTask)
+        bundle.putInt("Id", taskEntity.id)
         findNavController().navigate(R.id.action_mainTasksFragment_to_editTaskFragment, bundle)
     }
 

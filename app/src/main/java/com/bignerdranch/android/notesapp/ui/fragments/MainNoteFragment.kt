@@ -64,9 +64,7 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
      * Передача данных и переход на другой фрагмент по Bundle
      */
     override fun onItemClickListener(noteEntity: NoteEntity) {
-        bundle.putString("nameHeaderNote", noteEntity.nameHeaderNote)
-        bundle.putString("nameBodyNote", noteEntity.nameNote)
-        bundle.putString("dataNote", noteEntity.date)
+        bundle.putInt("Id", noteEntity.id)
         findNavController().navigate(R.id.action_mainNotesFragment_to_editNoteFragment, bundle)
     }
 

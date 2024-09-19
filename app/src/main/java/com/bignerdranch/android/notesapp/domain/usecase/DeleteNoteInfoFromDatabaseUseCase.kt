@@ -8,7 +8,7 @@ class DeleteNoteInfoFromDatabaseUseCase(private val repositoryImpl: DatabaseRepo
     /**
      *  Удаления заметки
      */
-   suspend fun deleteNoteInDatabaseUseCase(nameNote: NoteEntity)  {
-       repositoryImpl.deleteNoteInDatabase(nameNote)
+   suspend fun deleteNoteInDatabaseUseCase(id: Int)  {
+       repositoryImpl.deleteByIdNoteInDatabase(id)
    }
 }

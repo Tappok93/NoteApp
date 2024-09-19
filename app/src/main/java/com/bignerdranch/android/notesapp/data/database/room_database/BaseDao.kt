@@ -2,7 +2,6 @@ package com.bignerdranch.android.notesapp.data.database.room_database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -17,7 +16,6 @@ interface BaseDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertInfoNoteInDatabase(infoNote: NoteEntity)
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertInfoTaskInDatabase(infoTask: TaskEntity)
 
@@ -26,23 +24,22 @@ interface BaseDao {
      */
     @Query("SELECT * FROM TableNote")
     fun getInfoNote(): LiveData<List<NoteEntity>>
-
     @Query("SELECT * FROM TableTask")
     fun getInfoTask(): LiveData<List<TaskEntity>>
 
     /**
      * Методы удаления заметок\задач из списка базы данных
      */
-    @Delete
-    suspend fun deleteInfoBaseNote(nameNote: NoteEntity)
-
-    @Delete
-    suspend fun deleteInfoBaseTask(nameTask: TaskEntity)
+    @Query("DELETE FROM TableTask WHERE id = :id")
+    suspend fun deleteTaskByName(id: Int)
+    @Query("DELETE FROM TableNote WHERE id = :id")
+    suspend fun deleteNoteByName(id: Int)
 
     /**
-     * Метод удаления заметки по наиминованию из списка базы данных
+     * Методы получения заметки\задачи по id из списка базы данных
      */
-//    @Query("DELETE FROM TableNote WHERE nameNote = :nameNote")
-//    suspend fun deleteNoteByName(nameNote: String)
-
+    @Query("SELECT * FROM TableNote WHERE id = :id")
+    suspend fun getNoteById(id: Int): NoteEntity?
+    @Query("SELECT * FROM TableTask WHERE id = :id")
+    suspend fun getTaskById(id: Int): TaskEntity?
 }
