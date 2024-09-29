@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class UserViewModel: ViewModel() {
+class NotesAppSettingViewModel: ViewModel() {
     private val userNameLiveData = MutableLiveData<String>()
     val userName: LiveData<String> get() = userNameLiveData
 

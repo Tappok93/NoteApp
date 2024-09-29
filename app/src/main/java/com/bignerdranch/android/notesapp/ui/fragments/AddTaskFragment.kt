@@ -1,7 +1,5 @@
 package com.bignerdranch.android.notesapp.ui.fragments
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -20,7 +16,6 @@ import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.databinding.FragmentAddTasksBinding
 import com.bignerdranch.android.notesapp.ui.view_model.TaskViewModel
 import com.bignerdranch.android.notesapp.utils.UtilsApp
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
 
@@ -35,16 +30,14 @@ class AddTaskFragment : Fragment() {
     ): View {
         binding = FragmentAddTasksBinding.inflate(layoutInflater, container, false)
         taskViewModel = ViewModelProvider(this)[TaskViewModel::class.java]
-
         setHasOptionsMenu(true)
         return binding.root
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
+    /**
+     * Раздуваем созданное меню
+     */
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.save_bottom_menu, menu)
@@ -57,16 +50,11 @@ class AddTaskFragment : Fragment() {
         return when (item.itemId) {
             R.id.save -> {
 
-                // Создаём объект новой задачи
-                val newTask = taskViewModel.createTaskObj(binding.textTask.text.toString())
-
                 //Вставка задачи в БД
-                lifecycleScope.launch {
-                    taskViewModel.insertTask(newTask)
-                }
+                taskViewModel.insertTask(taskViewModel.createTaskObj(binding.textTask.text.toString()))
 
                 //Отправка уведомления
-                UtilsApp.sendPushInfo(
+                taskViewModel.sendPushTask(
                     this,
                     getString(R.string.TextHeaderTask),
                     getString(R.string.TextBodyTask)
@@ -79,6 +67,7 @@ class AddTaskFragment : Fragment() {
                 requireActivity().supportFragmentManager.popBackStack()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

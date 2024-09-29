@@ -7,16 +7,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.data.database.shared_preferences.PreferencesBase
 import com.bignerdranch.android.notesapp.databinding.FragmentSettingBinding
-import com.bignerdranch.android.notesapp.ui.view_model.UserViewModel
-import com.bignerdranch.android.notesapp.utils.UtilsApp
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 @Suppress("DEPRECATION")
@@ -34,11 +28,9 @@ class SettingFragment : Fragment() {
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-
+    /**
+     * Раздуваем созданное меню
+     */
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.save_bottom_menu, menu)
@@ -68,7 +60,6 @@ class SettingFragment : Fragment() {
                 requireActivity().supportFragmentManager.popBackStack()
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }

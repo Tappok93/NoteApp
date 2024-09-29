@@ -9,7 +9,7 @@ class GetListNoteInfoFromDatabaseUseCase(private val repositoryImpl: DatabaseRep
     /**
      * Получение списка заметок
      */
-     fun getNoteFromDatabaseUseCase(): LiveData<List<NoteEntity>> {
+    fun getNoteFromDatabaseUseCase(): LiveData<List<NoteEntity>> {
         return repositoryImpl.getNoteFromDatabase()
     }
 }

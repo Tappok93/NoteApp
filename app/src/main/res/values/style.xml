@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RadioButtonStyle">
+        <item name="android:button">@drawable/style_buttom</item>
+    </style>
+</resources>

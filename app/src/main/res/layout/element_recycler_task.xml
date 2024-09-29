@@ -1,13 +1,15 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/elementTaskRV"
+    android:theme="@style/Base.Theme.NotesApp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_marginStart="10dp"
     android:layout_marginTop="10dp"
     android:layout_marginEnd="10dp"
-    android:backgroundTint="#07786D"
+    android:backgroundTint="#95E48F22"
     app:cardCornerRadius="20dp"
     app:cardElevation="5dp">
 
@@ -16,14 +18,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:background="#DED7ED">
+        android:background="#FBEBA0">
 
         <TextView
             android:id="@+id/textTaskElement"
-            android:layout_width="340dp"
-            android:layout_height="85dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:hint="@string/taskText"
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -33,13 +38,12 @@
 
         <RadioButton
             android:id="@+id/radioTaskBTN"
-            android:layout_width="60dp"
-            android:layout_height="70dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </com.google.android.material.card.MaterialCardView>

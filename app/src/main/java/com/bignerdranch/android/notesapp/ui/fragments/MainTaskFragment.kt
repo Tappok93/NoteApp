@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.bignerdranch.android.notesapp.data.database.room_database.entitys.Tas
 import com.bignerdranch.android.notesapp.databinding.FragmentMainTasksBinding
 import com.bignerdranch.android.notesapp.ui.adapter.TaskRecyclerViewAdapter
 import com.bignerdranch.android.notesapp.ui.view_model.TaskViewModel
+import kotlinx.coroutines.launch
 
 
 class MainTaskFragment : Fragment(), TaskRecyclerViewAdapter.InfoTaskItemClickListener {
@@ -44,7 +46,6 @@ class MainTaskFragment : Fragment(), TaskRecyclerViewAdapter.InfoTaskItemClickLi
                 adapter.updateList(it)
             }
         }
-
         return binding.root
     }
 
@@ -65,6 +66,13 @@ class MainTaskFragment : Fragment(), TaskRecyclerViewAdapter.InfoTaskItemClickLi
     override fun onItemClickListener(taskEntity: TaskEntity) {
         bundle.putInt("Id", taskEntity.id)
         findNavController().navigate(R.id.action_mainTasksFragment_to_editTaskFragment, bundle)
+    }
+
+    override fun editElementClickListener(taskEntity: TaskEntity) {
+            taskViewModel.updateTaskCheckUseCase(
+                taskEntity.checkTask,
+                taskEntity.id
+            )
     }
 
 }

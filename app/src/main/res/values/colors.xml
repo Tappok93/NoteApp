@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="radio_button_checked_color">#FF0080</color>
+    <color name="radio_button_unchecked_color">#83FF00</color>
+    <color name="my_primary_color">#FF0000</color>
+    <color name="my_on_primary_color">#FFFFFF</color>
+    <color name="my_surface_color">#CCCCCC</color>
+    <color name="my_on_surface_color">#666666</color>
+
 </resources>

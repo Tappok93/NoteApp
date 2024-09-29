@@ -19,4 +19,6 @@
     <string name="TextBodyNote">Заметка успешно сохранена.</string>
     <string name="TextHeaderTask">Информация о задаче</string>
     <string name="TextBodyTask">Задача успешно сохранена.</string>
+    <string name="TextBodyNoteDelete">Заметка успешно удалена.</string>
+    <string name="TextBodyTaskDelete">Задача успешно сохранена.</string>
 </resources>

@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.databinding.EditTaskFragmentBinding
-import com.bignerdranch.android.notesapp.ui.view_model.NoteViewModel
 import com.bignerdranch.android.notesapp.ui.view_model.TaskViewModel
 import kotlinx.coroutines.launch
 
@@ -28,21 +27,31 @@ class EditTaskFragment : Fragment() {
         binding = EditTaskFragmentBinding.inflate(layoutInflater, container, false)
         taskViewModel = ViewModelProvider(this)[TaskViewModel::class.java]
         setHasOptionsMenu(true)
-
-        //Ловим во фрагменте данные переданные по Bundle и присваиваем элементу фрагмента
-        val id = arguments?.getInt("Id")
-        lifecycleScope.launch {
-            id?.let {
-                val objectTask = taskViewModel.getObjectTaskById(it)
-                val textBodyTask = objectTask?.nameTask
-                binding.editBodyTaskET.setText(textBodyTask)
-            }
-        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        /**
+         * Ловим во фрагменте данные переданные по Bundle и присваиваем элементу фрагмента
+         */
+        val id = arguments?.getInt("Id")
+        taskViewModel.createAndAssignTask(id ?: 0) { task ->
+            val textBodyTask = task.nameTask
+            binding.editBodyTaskET.setText(textBodyTask)
+        }
+
+        /**
+         * Обработка кнопки [Сохранить]
+         */
+        binding.saveEditTaskBTN.setOnClickListener {
+            taskViewModel.updateObjectTaskByIdUseCase(
+                binding.editBodyTaskET.text.toString(),
+                id!!
+            )
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
     /**
@@ -61,12 +70,11 @@ class EditTaskFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.delete -> {
-                lifecycleScope.launch {
-                    arguments?.getInt("Id")?.let { taskViewModel.deleteTaskById(it) }
-                }
+                arguments?.getInt("Id")?.let { taskViewModel.deleteTaskById(it) }
                 requireActivity().supportFragmentManager.popBackStack()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

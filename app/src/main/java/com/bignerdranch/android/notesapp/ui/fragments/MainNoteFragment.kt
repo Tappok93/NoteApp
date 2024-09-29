@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -41,13 +43,12 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
             viewLifecycleOwner
         ) { dataList ->
             dataList?.let {
-                adapter.updateList(it)
+                adapter.updateListFromDB(it)
             }
         }
 
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,6 +59,20 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
         binding.addNoteBTN.setOnClickListener {
             findNavController().navigate(R.id.action_mainNotesFragment_to_addNotesFragment)
         }
+
+        /**
+         * Поиск по SearchView
+         */
+        binding.searchNoteSv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter(newText)
+                return true
+            }
+        })
     }
 
     /**
@@ -67,5 +82,4 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
         bundle.putInt("Id", noteEntity.id)
         findNavController().navigate(R.id.action_mainNotesFragment_to_editNoteFragment, bundle)
     }
-
 }

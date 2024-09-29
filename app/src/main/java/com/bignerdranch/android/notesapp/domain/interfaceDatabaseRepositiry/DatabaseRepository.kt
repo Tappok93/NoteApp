@@ -11,6 +11,9 @@ interface DatabaseRepository {
     suspend fun deleteByIdTaskInDatabase(id: Int)
     suspend fun getNoteById(id: Int): NoteEntity?
     suspend fun getTaskById(id: Int): TaskEntity?
+    suspend fun updateNote(nameNote: String, id: Int)
+    suspend fun updateTask(nameTask: String, id: Int)
+    suspend fun updateTaskCheck(checkTask: Boolean, id: Int)
     fun getNoteFromDatabase(): LiveData<List<NoteEntity>>
     fun getTaskFromDatabase(): LiveData<List<TaskEntity>>
 }

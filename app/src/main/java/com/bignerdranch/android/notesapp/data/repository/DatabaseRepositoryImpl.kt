@@ -74,4 +74,25 @@ class DatabaseRepositoryImpl : DatabaseRepository {
     override suspend fun getTaskById(id: Int): TaskEntity? {
         return baseDao.getTaskById(id)
     }
+
+    /**
+     * Обновление объекта заметка по id
+     */
+    override suspend fun updateNote(nameNote: String, id: Int) {
+        baseDao.updateNote(nameNote, id)
+    }
+
+    /**
+     * Обновление объекта задача по id
+     */
+    override suspend fun updateTask(nameTask: String, id: Int) {
+        baseDao.updateTask(nameTask, id)
+    }
+
+    /**
+     * Обновление параметра check у задачи по id
+     */
+    override suspend fun updateTaskCheck(checkTask: Boolean, id: Int) {
+        baseDao.updateTaskCheck(checkTask, id)
+    }
 }

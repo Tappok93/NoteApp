@@ -1,6 +1,5 @@
 package com.bignerdranch.android.notesapp.ui.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import com.bignerdranch.android.notesapp.databinding.ElementRecyclerNoteBinding
 class NoteRecyclerViewAdapter(private var myListNote: List<NoteEntity>) :
     RecyclerView.Adapter<NoteRecyclerViewAdapter.ItemViewHolder>() {
     private var infoListener: InfoNoteItemClickListener? = null
+    private var startList: List<NoteEntity> = listOf()
 
     fun setInfoListener(listener: InfoNoteItemClickListener) {
         infoListener = listener
@@ -23,6 +23,22 @@ class NoteRecyclerViewAdapter(private var myListNote: List<NoteEntity>) :
     interface InfoNoteItemClickListener {
         fun onItemClickListener(noteEntity: NoteEntity)
     }
+
+    /**
+     * Фильтрация списка по вводу Searchview
+     */
+//    fun filter(query: String?) {
+//        if (query.isNullOrEmpty()) {
+//            updateList(startList)
+//        } else {
+//            val filterList = startList.filter {
+//                it.nameNote.contains(query, ignoreCase = true) ||
+//                it.date.contains(query, ignoreCase = true) ||
+//                it.nameHeaderNote.contains(query, ignoreCase = true)
+//            }
+//            updateList(filterList)
+//        }
+//    }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val bindingAdapter = ElementRecyclerNoteBinding.bind(itemView)
@@ -65,9 +81,13 @@ class NoteRecyclerViewAdapter(private var myListNote: List<NoteEntity>) :
     /**
      * Обновление списка
      */
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateList(listItem: List<NoteEntity>) {
+    private fun updateList(listItem: List<NoteEntity>) {
         myListNote = listItem
         notifyDataSetChanged()
     }
+
+//    fun updateListFromDB(listItem: List<NoteEntity>) {
+//        updateList(listItem)
+//        startList = myListNote.map { it.copy() }.toMutableList()
+//    }
 }

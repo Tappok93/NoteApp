@@ -7,13 +7,14 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.bignerdranch.android.notesapp.R
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
 import com.bignerdranch.android.notesapp.databinding.EditNoteFragmentBinding
 import com.bignerdranch.android.notesapp.ui.view_model.NoteViewModel
+import com.bignerdranch.android.notesapp.utils.UtilsApp
 import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
@@ -29,22 +30,32 @@ class EditNoteFragment : Fragment() {
         noteViewModel = ViewModelProvider(this)[NoteViewModel::class.java]
         setHasOptionsMenu(true)
 
-        //Ловим во фрагменте данные переданные по Bundle и присваиваем элементам фрагмента
-        val id = arguments?.getInt("Id")
-        lifecycleScope.launch {
-            id?.let {
-                val objectNote = noteViewModel.getObjectNoteById(it)
-                binding.editHeaderNoteTV.text = objectNote?.nameHeaderNote ?: "No Header"
-                val textBodyNote = objectNote?.nameNote
-                binding.editBodyNoteET.setText(textBodyNote)
-            }
-        }
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        /**
+         * Ловим во фрагменте данные переданные по Bundle и присваиваем элементам фрагмента
+         */
+        val id = arguments?.getInt("Id")
+        noteViewModel.createAndAssignNote(id ?: 0) { note ->
+            val textBodyTask = note.nameNote
+            binding.editBodyNoteET.setText(textBodyTask)
+            binding.editHeaderNoteTV.text = note.nameHeaderNote
+        }
+
+        /**
+         * Обработка кнопки [Сохранить]
+         */
+        binding.saveEditNoteBTN.setOnClickListener {
+            noteViewModel.updateObjectNoteByIdUseCase(
+                binding.editBodyNoteET.text.toString(),
+                id!!
+            )
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
     /**
@@ -57,19 +68,42 @@ class EditNoteFragment : Fragment() {
     }
 
     /**
-     * Удаление заметки за базы данных
+     * Удаление заметки за базы данных по нажатию на элемент меню
      */
     @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.delete -> {
-                lifecycleScope.launch {
-                    arguments?.getInt("Id")?.let { noteViewModel.deleteObjectNoteByIdUseCase(it) }
-                }
-                requireActivity().supportFragmentManager.popBackStack()
+                arguments?.getInt("Id")?.let { deleteNoteDialog(it) }
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    /**
+     * Логика удаления заметки
+     */
+    private fun deleteNoteDialog(id: Int) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Вы уверены, что хотите удалить заметку ?")
+            .setItems(arrayOf("Да", "Нет")) { dialog, which ->
+                when (which) {
+                    0 -> {
+                        noteViewModel.deleteObjectNoteByIdUseCase(id)
+                        noteViewModel.sendPushNote(
+                            this,
+                            getString(R.string.TextHeaderNote),
+                            getString(R.string.TextBodyNoteDelete)
+                        )
+                        requireActivity().supportFragmentManager.popBackStack()
+                    }
+
+                    1 -> {
+                        dialog.dismiss()
+                    }
+                }
+            }.show()
     }
 }

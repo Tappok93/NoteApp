@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -18,7 +17,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.data.database.shared_preferences.PreferencesBase
 import com.bignerdranch.android.notesapp.databinding.ActivityMainBinding
-import com.bignerdranch.android.notesapp.ui.view_model.UserViewModel
+import com.bignerdranch.android.notesapp.ui.view_model.NotesAppSettingViewModel
 import com.bignerdranch.android.notesapp.utils.UtilsApp
 
 @Suppress("DEPRECATION")
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var configuration: AppBarConfiguration
     private lateinit var navController: NavController
     private lateinit var bindingActivityMainBinding: ActivityMainBinding
-    val userViewModel: UserViewModel by viewModels()
+    val userViewModel: NotesAppSettingViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,20 +44,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.mainTasksFragment -> bindingActivityMainBinding.contentMain.bottomNav.visibility =
                     View.VISIBLE
 
-                R.id.settingFragment -> bindingActivityMainBinding.contentMain.bottomNav.visibility =
-                    View.GONE
-
-                R.id.addTasksFragment -> bindingActivityMainBinding.contentMain.bottomNav.visibility =
-                    View.GONE
-
-                R.id.addNotesFragment -> bindingActivityMainBinding.contentMain.bottomNav.visibility =
-                    View.GONE
-
-                R.id.editNoteFragment -> bindingActivityMainBinding.contentMain.bottomNav.visibility =
-                    View.GONE
-
-                R.id.editTaskFragment -> bindingActivityMainBinding.contentMain.bottomNav.visibility =
-                    View.GONE
+                else -> {
+                    bindingActivityMainBinding.contentMain.bottomNav.visibility =
+                        View.GONE
+                }
             }
         }
 
@@ -75,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, configuration)
         bindingActivityMainBinding.navView.setupWithNavController(navController)
 
-       //Обработка нажатий на элементы BottomNavigation
+        //Обработка нажатий на элементы BottomNavigation
         bindingActivityMainBinding.contentMain.bottomNav.setOnItemSelectedListener { item ->
             onBottomNavItemSelected(item)
         }
@@ -115,10 +104,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Обновляем UI для отрисовки имени пользователя
+     */
     private fun updateUI(name: String) {
-        val navigationView = bindingActivityMainBinding.navView
-        val headerView = navigationView.getHeaderView(0)
-        val userNameTextView = headerView.findViewById<TextView>(R.id.textUserName)
+        val userNameTextView = bindingActivityMainBinding.navView.getHeaderView(0)
+            .findViewById<TextView>(R.id.textUserName)
         userNameTextView.text = name
     }
 }
