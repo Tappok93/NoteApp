@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -43,7 +44,7 @@ class MainTaskFragment : Fragment(), TaskRecyclerViewAdapter.InfoTaskItemClickLi
             viewLifecycleOwner
         ) { dataList ->
             dataList?.let {
-                adapter.updateList(it)
+                adapter.updateTaskListFromDB(it)
             }
         }
         return binding.root
@@ -58,6 +59,20 @@ class MainTaskFragment : Fragment(), TaskRecyclerViewAdapter.InfoTaskItemClickLi
         binding.addTaskBTN.setOnClickListener {
             findNavController().navigate(R.id.action_mainTasksFragment_to_addTasksFragment)
         }
+
+        /**
+         * Поиск задач по SearchView
+         */
+        binding.searchTaskSv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filterTask(newText)
+                return true
+            }
+        })
     }
 
     /**
@@ -68,6 +83,9 @@ class MainTaskFragment : Fragment(), TaskRecyclerViewAdapter.InfoTaskItemClickLi
         findNavController().navigate(R.id.action_mainTasksFragment_to_editTaskFragment, bundle)
     }
 
+    /**
+     * Обработка нажатий на radioButtom, сохранение состояния в базу данных
+     */
     override fun editElementClickListener(taskEntity: TaskEntity) {
             taskViewModel.updateTaskCheckUseCase(
                 taskEntity.checkTask,

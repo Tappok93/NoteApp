@@ -11,7 +11,7 @@ import com.bignerdranch.android.notesapp.databinding.ElementRecyclerNoteBinding
 class NoteRecyclerViewAdapter(private var myListNote: List<NoteEntity>) :
     RecyclerView.Adapter<NoteRecyclerViewAdapter.ItemViewHolder>() {
     private var infoListener: InfoNoteItemClickListener? = null
-    private var startList: List<NoteEntity> = listOf()
+    private var startListNote: List<NoteEntity> = listOf()
 
     fun setInfoListener(listener: InfoNoteItemClickListener) {
         infoListener = listener
@@ -25,20 +25,20 @@ class NoteRecyclerViewAdapter(private var myListNote: List<NoteEntity>) :
     }
 
     /**
-     * Фильтрация списка по вводу Searchview
+     * Фильтрация списка заметок по вводу Searchview
      */
-//    fun filter(query: String?) {
-//        if (query.isNullOrEmpty()) {
-//            updateList(startList)
-//        } else {
-//            val filterList = startList.filter {
-//                it.nameNote.contains(query, ignoreCase = true) ||
-//                it.date.contains(query, ignoreCase = true) ||
-//                it.nameHeaderNote.contains(query, ignoreCase = true)
-//            }
-//            updateList(filterList)
-//        }
-//    }
+    fun filterNote(query: String?) {
+        if (query.isNullOrEmpty()) {
+            updateList(startListNote)
+        } else {
+            val filterListNote = startListNote.filter {
+                it.nameNote.contains(query, ignoreCase = true) ||
+                        it.date.contains(query, ignoreCase = true) ||
+                        it.nameHeaderNote.contains(query, ignoreCase = true)
+            }
+            updateList(filterListNote)
+        }
+    }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val bindingAdapter = ElementRecyclerNoteBinding.bind(itemView)
@@ -86,8 +86,11 @@ class NoteRecyclerViewAdapter(private var myListNote: List<NoteEntity>) :
         notifyDataSetChanged()
     }
 
-//    fun updateListFromDB(listItem: List<NoteEntity>) {
-//        updateList(listItem)
-//        startList = myListNote.map { it.copy() }.toMutableList()
-//    }
+    /**
+     * Обновление списка заметок
+     */
+    fun updateNoteListFromDB(listItem: List<NoteEntity>) {
+        updateList(listItem)
+        startListNote = myListNote.map { it.copy() }.toMutableList()
+    }
 }

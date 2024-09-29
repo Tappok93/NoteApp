@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.notesapp.R
+import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
 import com.bignerdranch.android.notesapp.data.database.room_database.entitys.TaskEntity
 import com.bignerdranch.android.notesapp.databinding.ElementRecyclerTaskBinding
 
 class TaskRecyclerViewAdapter(private var myListTask: List<TaskEntity>) :
     RecyclerView.Adapter<TaskRecyclerViewAdapter.ItemViewHolder>() {
     private var infoListener: InfoTaskItemClickListener? = null
+    private var startListTask: List<TaskEntity> = listOf()
 
     fun setInfoListener(listener: InfoTaskItemClickListener) {
         infoListener = listener
@@ -24,6 +26,20 @@ class TaskRecyclerViewAdapter(private var myListTask: List<TaskEntity>) :
     interface InfoTaskItemClickListener {
         fun onItemClickListener(taskEntity: TaskEntity)
         fun editElementClickListener(taskEntity: TaskEntity)
+    }
+
+    /**
+     * Фильтрация списка задач по вводу Searchview
+     */
+    fun filterTask(query: String?) {
+        if (query.isNullOrEmpty()) {
+            updateList(startListTask)
+        } else {
+            val filterListTask = startListTask.filter {
+                it.nameTask.contains(query, ignoreCase = true)
+            }
+            updateList(filterListTask)
+        }
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -86,5 +102,13 @@ class TaskRecyclerViewAdapter(private var myListTask: List<TaskEntity>) :
     fun updateList(listItem: List<TaskEntity>) {
         myListTask = listItem
         notifyDataSetChanged()
+    }
+
+    /**
+     * Обновление списка задач
+     */
+    fun updateTaskListFromDB(listItem: List<TaskEntity>) {
+        updateList(listItem)
+        startListTask = myListTask.map { it.copy() }.toMutableList()
     }
 }

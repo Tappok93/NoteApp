@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -43,7 +42,7 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
             viewLifecycleOwner
         ) { dataList ->
             dataList?.let {
-                adapter.updateListFromDB(it)
+                adapter.updateNoteListFromDB(it)
             }
         }
 
@@ -61,7 +60,7 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
         }
 
         /**
-         * Поиск по SearchView
+         * Поиск заметок по SearchView
          */
         binding.searchNoteSv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -69,7 +68,7 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.filter(newText)
+                adapter.filterNote(newText)
                 return true
             }
         })
