@@ -1,11 +1,11 @@
-package com.bignerdranch.android.notesapp.data.database.room_database
+package com.bignerdranch.android.notesapp.data.storage.room_database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.TaskEntity
+import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.NoteEntity
+import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.TaskEntity
 
 @Database(entities = [NoteEntity::class, TaskEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
@@ -28,5 +28,3 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 }
-
-//Dependence ingaction - посмотреть

@@ -1,8 +1,8 @@
 package com.bignerdranch.android.notesapp.domain.interfaceDatabaseRepositiry
 
 import androidx.lifecycle.LiveData
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.TaskEntity
+import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.NoteEntity
+import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.TaskEntity
 
 interface DatabaseRepository {
     suspend fun insertNoteInDatabase(infoNote: NoteEntity)

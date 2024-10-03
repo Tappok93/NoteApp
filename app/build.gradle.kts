@@ -49,9 +49,18 @@ android {
 dependencies {
 
     val room_version = "2.6.1"
+    val dagger_version = "2.52"
 
-//    //Библиотека для форматирования даты
-//    implementation ("com.jakewharton.threetenabp:threetenabp:1.3.1")
+    //Dagger Hilt
+//    implementation ("com.google.dagger:hilt-android:2.52")
+//    kapt ("com.google.dagger:hilt-compiler:2.52")
+
+    //Dagger 2
+    implementation ("com.google.dagger:dagger:$dagger_version")
+    annotationProcessor ("com.google.dagger:dagger-compiler:$dagger_version")
+    kapt ("com.google.dagger:dagger-compiler:$dagger_version")
+    implementation ("javax.inject:javax.inject:1")
+
 
     //Push уведомления
     implementation ("androidx.core:core-ktx:1.10.1")

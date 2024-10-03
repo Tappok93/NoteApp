@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
@@ -14,21 +13,26 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bignerdranch.android.notesapp.MyApplication
 import com.bignerdranch.android.notesapp.R
-import com.bignerdranch.android.notesapp.data.database.shared_preferences.PreferencesBase
+import com.bignerdranch.android.notesapp.data.storage.shared_preferences.PreferencesBase
 import com.bignerdranch.android.notesapp.databinding.ActivityMainBinding
 import com.bignerdranch.android.notesapp.ui.view_model.NotesAppSettingViewModel
 import com.bignerdranch.android.notesapp.utils.UtilsApp
+import javax.inject.Inject
 
 @Suppress("DEPRECATION")
-class MainActivity : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
     private lateinit var configuration: AppBarConfiguration
     private lateinit var navController: NavController
     private lateinit var bindingActivityMainBinding: ActivityMainBinding
-    val userViewModel: NotesAppSettingViewModel by viewModels()
+    @Inject
+    lateinit var userViewModel: NotesAppSettingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (applicationContext as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
+
         bindingActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindingActivityMainBinding.root)
         setSupportActionBar(bindingActivityMainBinding.contentMain.appBar.toolbar2)

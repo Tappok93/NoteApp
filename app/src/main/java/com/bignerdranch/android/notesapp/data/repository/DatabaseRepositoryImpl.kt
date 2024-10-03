@@ -1,14 +1,15 @@
 package com.bignerdranch.android.notesapp.data.repository
 
 import androidx.lifecycle.LiveData
-import com.bignerdranch.android.notesapp.data.database.room_database.AppDatabase
-import com.bignerdranch.android.notesapp.data.database.room_database.BaseDao
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.TaskEntity
+import com.bignerdranch.android.notesapp.data.storage.room_database.AppDatabase
+import com.bignerdranch.android.notesapp.data.storage.room_database.BaseDao
+import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.NoteEntity
+import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.TaskEntity
 import com.bignerdranch.android.notesapp.domain.interfaceDatabaseRepositiry.DatabaseRepository
 import com.bignerdranch.android.notesapp.MyApplication
+import javax.inject.Inject
 
-class DatabaseRepositoryImpl : DatabaseRepository {
+class DatabaseRepositoryImpl @Inject constructor(): DatabaseRepository {
 
     private val baseDao: BaseDao
     val context = MyApplication.getAppContext()
@@ -16,7 +17,6 @@ class DatabaseRepositoryImpl : DatabaseRepository {
     init {
         val database = AppDatabase.getInstance(context)
         baseDao = database!!.getBaseDao()
-
     }
 
     /**

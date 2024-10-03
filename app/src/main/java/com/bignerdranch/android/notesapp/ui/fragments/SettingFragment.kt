@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bignerdranch.android.notesapp.R
-import com.bignerdranch.android.notesapp.data.database.shared_preferences.PreferencesBase
+import com.bignerdranch.android.notesapp.data.storage.shared_preferences.PreferencesBase
 import com.bignerdranch.android.notesapp.databinding.FragmentSettingBinding
 
 

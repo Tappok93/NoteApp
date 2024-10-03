@@ -1,8 +1,10 @@
 package com.bignerdranch.android.notesapp.domain.usecase
 
 import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
+import dagger.internal.DaggerCollections
+import javax.inject.Inject
 
-class CheckCompletionTaskUseCase(private val repositoryImpl: DatabaseRepositoryImpl) {
+class CheckCompletionTaskUseCase @Inject constructor(private val repositoryImpl: DatabaseRepositoryImpl) {
     /**
      *  Обновление параметра проверки у задачи
      */

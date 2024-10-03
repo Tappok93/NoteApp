@@ -1,4 +1,4 @@
-package com.bignerdranch.android.notesapp.data.database.shared_preferences
+package com.bignerdranch.android.notesapp.data.storage.shared_preferences
 
 import android.content.Context
 

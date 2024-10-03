@@ -4,9 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.TaskEntity
-import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
+import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.TaskEntity
 import com.bignerdranch.android.notesapp.domain.usecase.CheckCompletionTaskUseCase
 import com.bignerdranch.android.notesapp.domain.usecase.DeleteTaskInfoFromDatabaseUseCase
 import com.bignerdranch.android.notesapp.domain.usecase.GetListTaskInfoFromDatabaseUseCase
@@ -17,21 +15,17 @@ import com.bignerdranch.android.notesapp.utils.UtilsApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class TaskViewModel : ViewModel() {
-    private val repositoryDatabase = DatabaseRepositoryImpl()
-    private val deleteTaskInfoFromDatabaseUseCase =
-        DeleteTaskInfoFromDatabaseUseCase(repositoryDatabase)
-    private val getTaskInfoFromDatabaseUseCase =
-        GetListTaskInfoFromDatabaseUseCase(repositoryDatabase)
-    private val insertTaskInfoFromDatabaseUseCase =
-        InsertTaskInfoFromDatabaseUseCase(repositoryDatabase)
-    private val getOneTaskInfoFromDatabaseUseCase =
-        GetOneTaskInfoFromDatabaseUseCase(repositoryDatabase)
-    private val updateTaskInfoFromDatabaseUseCase =
-        UpdateTaskInfoFromDatabaseUseCase(repositoryDatabase)
-    private val checkCompletionTaskUseCase =
-        CheckCompletionTaskUseCase(repositoryDatabase)
+
+class TaskViewModel @Inject constructor(
+    private val deleteTaskInfoFromDatabaseUseCase: DeleteTaskInfoFromDatabaseUseCase,
+    getTaskInfoFromDatabaseUseCase: GetListTaskInfoFromDatabaseUseCase,
+    private val insertTaskInfoFromDatabaseUseCase: InsertTaskInfoFromDatabaseUseCase,
+    private val getOneTaskInfoFromDatabaseUseCase: GetOneTaskInfoFromDatabaseUseCase,
+    private val updateTaskInfoFromDatabaseUseCase: UpdateTaskInfoFromDatabaseUseCase,
+    private val checkCompletionTaskUseCase: CheckCompletionTaskUseCase
+) : ViewModel() {
 
     /**
      * Получение списка задач из базы данных

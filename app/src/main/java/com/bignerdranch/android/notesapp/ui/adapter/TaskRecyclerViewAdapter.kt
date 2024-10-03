@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.notesapp.R
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.TaskEntity
+import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.TaskEntity
 import com.bignerdranch.android.notesapp.databinding.ElementRecyclerTaskBinding
 
 class TaskRecyclerViewAdapter(private var myListTask: List<TaskEntity>) :

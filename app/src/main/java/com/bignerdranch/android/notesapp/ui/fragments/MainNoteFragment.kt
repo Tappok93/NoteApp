@@ -1,5 +1,6 @@
 package com.bignerdranch.android.notesapp.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,19 +11,30 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bignerdranch.android.notesapp.MyApplication
 import com.bignerdranch.android.notesapp.R
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
+import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.NoteEntity
 import com.bignerdranch.android.notesapp.databinding.FragmentMainNotesBinding
 import com.bignerdranch.android.notesapp.ui.adapter.NoteRecyclerViewAdapter
 import com.bignerdranch.android.notesapp.ui.view_model.NoteViewModel
+import javax.inject.Inject
 
 
 class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickListener {
     private lateinit var binding: FragmentMainNotesBinding
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: NoteRecyclerViewAdapter
-    private lateinit var noteViewModel: NoteViewModel
+    @Inject
+    lateinit var noteViewModel: NoteViewModel
     private val bundle = Bundle()
+
+    /**
+     * Подключаем Dagger2 к фрагменту
+     */
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

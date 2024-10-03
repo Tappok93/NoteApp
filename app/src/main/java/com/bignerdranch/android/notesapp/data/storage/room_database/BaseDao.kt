@@ -1,12 +1,12 @@
-package com.bignerdranch.android.notesapp.data.database.room_database
+package com.bignerdranch.android.notesapp.data.storage.room_database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.TaskEntity
+import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.NoteEntity
+import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.TaskEntity
 
 @Dao
 interface BaseDao {

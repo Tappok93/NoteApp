@@ -4,8 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bignerdranch.android.notesapp.data.database.room_database.entitys.NoteEntity
-import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
+import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.NoteEntity
+import com.bignerdranch.android.notesapp.di.DaggerAppComponent
 import com.bignerdranch.android.notesapp.domain.usecase.DeleteNoteInfoFromDatabaseUseCase
 import com.bignerdranch.android.notesapp.domain.usecase.GetListNoteInfoFromDatabaseUseCase
 import com.bignerdranch.android.notesapp.domain.usecase.GetOneNoteInfoFromDatabaseUseCase
@@ -16,21 +16,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class NoteViewModel : ViewModel() {
-    private val repositoryDatabase = DatabaseRepositoryImpl()
-    private val deleteNoteInfoFromDatabaseUseCase =
-        DeleteNoteInfoFromDatabaseUseCase(repositoryDatabase)
-    private val getNoteInfoFromDatabaseUseCase =
-        GetListNoteInfoFromDatabaseUseCase(repositoryDatabase)
-    private val insertNoteInfoFromDatabaseUseCase =
-        InsertNoteInfoFromDatabaseUseCase(repositoryDatabase)
-    private val getOneNoteInfoFromDatabaseUseCase =
-        GetOneNoteInfoFromDatabaseUseCase(repositoryDatabase)
-    private val updateNoteInfoFromDatabaseUseCase =
-        UpdateNoteInfoFromDatabaseUseCase(repositoryDatabase)
-
-    lateinit var res: Job
+class NoteViewModel @Inject constructor() : ViewModel() {
+    private val instanceRep = DaggerAppComponent.create().getDatabaseRepository()
+    private val deleteNoteInfoFromDatabaseUseCase = DeleteNoteInfoFromDatabaseUseCase(instanceRep)
+    private val getNoteInfoFromDatabaseUseCase = GetListNoteInfoFromDatabaseUseCase(instanceRep)
+    private val insertNoteInfoFromDatabaseUseCase = InsertNoteInfoFromDatabaseUseCase(instanceRep)
+    private val getOneNoteInfoFromDatabaseUseCase = GetOneNoteInfoFromDatabaseUseCase(instanceRep)
+    private val updateNoteInfoFromDatabaseUseCase = UpdateNoteInfoFromDatabaseUseCase(instanceRep)
 
     /**
      * Получение списка заметок из базы
@@ -57,7 +51,7 @@ class NoteViewModel : ViewModel() {
     /**
      * Получение объекта заметка по Id
      */
-     private suspend fun getObjectNoteById(id: Int): NoteEntity? {
+    private suspend fun getObjectNoteById(id: Int): NoteEntity? {
         return withContext(Dispatchers.IO) {
             getOneNoteInfoFromDatabaseUseCase.getOneNoteFromDatabaseUseCase(
                 id = id
@@ -82,7 +76,7 @@ class NoteViewModel : ViewModel() {
      * Удаление объекта заметка по Id
      */
     fun deleteObjectNoteByIdUseCase(id: Int) {
-        res = viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             deleteNoteInfoFromDatabaseUseCase.deleteNoteInDatabaseUseCase(id)
         }
     }
