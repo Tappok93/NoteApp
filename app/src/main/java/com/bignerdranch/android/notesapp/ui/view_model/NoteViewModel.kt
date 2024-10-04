@@ -4,22 +4,25 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bignerdranch.android.notesapp.MyApplication
+import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
 import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.NoteEntity
 import com.bignerdranch.android.notesapp.di.DaggerAppComponent
-import com.bignerdranch.android.notesapp.domain.usecase.DeleteNoteInfoFromDatabaseUseCase
-import com.bignerdranch.android.notesapp.domain.usecase.GetListNoteInfoFromDatabaseUseCase
-import com.bignerdranch.android.notesapp.domain.usecase.GetOneNoteInfoFromDatabaseUseCase
-import com.bignerdranch.android.notesapp.domain.usecase.InsertNoteInfoFromDatabaseUseCase
-import com.bignerdranch.android.notesapp.domain.usecase.UpdateNoteInfoFromDatabaseUseCase
+import com.bignerdranch.android.notesapp.domain.interfaceDatabaseRepositiry.DatabaseRepository
+import com.bignerdranch.android.notesapp.domain.usecase.note.DeleteNoteInfoFromDatabaseUseCase
+import com.bignerdranch.android.notesapp.domain.usecase.note.GetListNoteInfoFromDatabaseUseCase
+import com.bignerdranch.android.notesapp.domain.usecase.note.GetOneNoteInfoFromDatabaseUseCase
+import com.bignerdranch.android.notesapp.domain.usecase.note.InsertNoteInfoFromDatabaseUseCase
+import com.bignerdranch.android.notesapp.domain.usecase.note.UpdateNoteInfoFromDatabaseUseCase
 import com.bignerdranch.android.notesapp.utils.UtilsApp
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class NoteViewModel @Inject constructor() : ViewModel() {
-    private val instanceRep = DaggerAppComponent.create().getDatabaseRepository()
+
+    private val instanceRep = DaggerAppComponent.builder().build().getDatabaseRepository()
     private val deleteNoteInfoFromDatabaseUseCase = DeleteNoteInfoFromDatabaseUseCase(instanceRep)
     private val getNoteInfoFromDatabaseUseCase = GetListNoteInfoFromDatabaseUseCase(instanceRep)
     private val insertNoteInfoFromDatabaseUseCase = InsertNoteInfoFromDatabaseUseCase(instanceRep)

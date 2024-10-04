@@ -1,4 +1,4 @@
-package com.bignerdranch.android.notesapp.ui.fragments
+package com.bignerdranch.android.notesapp.ui.fragments.task
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.databinding.EditTaskFragmentBinding
 import com.bignerdranch.android.notesapp.ui.view_model.TaskViewModel
-import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
 class EditTaskFragment : Fragment() {

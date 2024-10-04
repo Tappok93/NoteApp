@@ -2,12 +2,12 @@ package com.bignerdranch.android.notesapp.ui.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bignerdranch.android.notesapp.domain.usecase.CheckCompletionTaskUseCase
-import com.bignerdranch.android.notesapp.domain.usecase.DeleteTaskInfoFromDatabaseUseCase
-import com.bignerdranch.android.notesapp.domain.usecase.GetListTaskInfoFromDatabaseUseCase
-import com.bignerdranch.android.notesapp.domain.usecase.GetOneTaskInfoFromDatabaseUseCase
-import com.bignerdranch.android.notesapp.domain.usecase.InsertTaskInfoFromDatabaseUseCase
-import com.bignerdranch.android.notesapp.domain.usecase.UpdateTaskInfoFromDatabaseUseCase
+import com.bignerdranch.android.notesapp.domain.usecase.task.CheckCompletionTaskUseCase
+import com.bignerdranch.android.notesapp.domain.usecase.task.DeleteTaskInfoFromDatabaseUseCase
+import com.bignerdranch.android.notesapp.domain.usecase.task.GetListTaskInfoFromDatabaseUseCase
+import com.bignerdranch.android.notesapp.domain.usecase.task.GetOneTaskInfoFromDatabaseUseCase
+import com.bignerdranch.android.notesapp.domain.usecase.task.InsertTaskInfoFromDatabaseUseCase
+import com.bignerdranch.android.notesapp.domain.usecase.task.UpdateTaskInfoFromDatabaseUseCase
 import javax.inject.Inject
 
 class TaskViewModelFactory @Inject constructor(

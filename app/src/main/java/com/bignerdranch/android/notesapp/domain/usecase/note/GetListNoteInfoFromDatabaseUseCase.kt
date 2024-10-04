@@ -1,16 +1,17 @@
-package com.bignerdranch.android.notesapp.domain.usecase
+package com.bignerdranch.android.notesapp.domain.usecase.note
 
 import androidx.lifecycle.LiveData
 import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.NoteEntity
 import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
+import com.bignerdranch.android.notesapp.domain.interfaceDatabaseRepositiry.DatabaseRepository
 import javax.inject.Inject
 
-class GetListNoteInfoFromDatabaseUseCase @Inject constructor(private val repositoryImpl: DatabaseRepositoryImpl) {
+class GetListNoteInfoFromDatabaseUseCase @Inject constructor(private val repository: DatabaseRepository) {
 
     /**
      * Получение списка заметок
      */
     fun getNoteFromDatabaseUseCase(): LiveData<List<NoteEntity>> {
-        return repositoryImpl.getNoteFromDatabase()
+        return repository.getNoteFromDatabase()
     }
 }

@@ -1,4 +1,4 @@
-package com.bignerdranch.android.notesapp.ui.fragments
+package com.bignerdranch.android.notesapp.ui.fragments.task
 
 import android.os.Build
 import android.os.Bundle
@@ -11,12 +11,9 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.databinding.FragmentAddTasksBinding
 import com.bignerdranch.android.notesapp.ui.view_model.TaskViewModel
-import com.bignerdranch.android.notesapp.utils.UtilsApp
-import kotlinx.coroutines.launch
 
 
 @Suppress("DEPRECATION")

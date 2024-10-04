@@ -1,15 +1,16 @@
-package com.bignerdranch.android.notesapp.domain.usecase
+package com.bignerdranch.android.notesapp.domain.usecase.task
 
 import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.TaskEntity
 import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
+import com.bignerdranch.android.notesapp.domain.interfaceDatabaseRepositiry.DatabaseRepository
 import javax.inject.Inject
 
-class InsertTaskInfoFromDatabaseUseCase @Inject constructor(private val repositoryImpl: DatabaseRepositoryImpl) {
+class InsertTaskInfoFromDatabaseUseCase @Inject constructor(private val repository: DatabaseRepository) {
 
     /**
      * Вставка задачи
      */
     suspend fun insertTaskInDatabaseUseCase(info: TaskEntity) {
-        repositoryImpl.insertTaskInDatabase(info)
+        repository.insertTaskInDatabase(info)
     }
 }

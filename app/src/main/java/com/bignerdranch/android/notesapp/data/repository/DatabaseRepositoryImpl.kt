@@ -1,5 +1,6 @@
 package com.bignerdranch.android.notesapp.data.repository
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import com.bignerdranch.android.notesapp.data.storage.room_database.AppDatabase
 import com.bignerdranch.android.notesapp.data.storage.room_database.BaseDao
@@ -9,15 +10,15 @@ import com.bignerdranch.android.notesapp.domain.interfaceDatabaseRepositiry.Data
 import com.bignerdranch.android.notesapp.MyApplication
 import javax.inject.Inject
 
-class DatabaseRepositoryImpl @Inject constructor(): DatabaseRepository {
+class DatabaseRepositoryImpl @Inject constructor(private val baseDao: BaseDao): DatabaseRepository {
 
-    private val baseDao: BaseDao
-    val context = MyApplication.getAppContext()
+//    private val baseDao: BaseDao
+//    private val context: Context
 
-    init {
-        val database = AppDatabase.getInstance(context)
-        baseDao = database!!.getBaseDao()
-    }
+//    init {
+//        val database = AppDatabase.getInstance(context)
+//        baseDao = database!!.getBaseDao()
+//    }
 
     /**
      * Вставка информации по заметке в базу данных
