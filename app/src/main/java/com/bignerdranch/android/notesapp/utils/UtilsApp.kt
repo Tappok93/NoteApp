@@ -47,7 +47,11 @@ class UtilsApp {
             val context = fragment.requireContext()
 
             //Проверка на разрешение отправлять уведомления
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
                 fragment.requestPermissions(
                     arrayOf(Manifest.permission.POST_NOTIFICATIONS),
                     1

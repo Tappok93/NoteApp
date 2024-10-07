@@ -4,11 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bignerdranch.android.notesapp.MyApplication
-import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
 import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.NoteEntity
-import com.bignerdranch.android.notesapp.di.DaggerAppComponent
-import com.bignerdranch.android.notesapp.domain.interfaceDatabaseRepositiry.DatabaseRepository
 import com.bignerdranch.android.notesapp.domain.usecase.note.DeleteNoteInfoFromDatabaseUseCase
 import com.bignerdranch.android.notesapp.domain.usecase.note.GetListNoteInfoFromDatabaseUseCase
 import com.bignerdranch.android.notesapp.domain.usecase.note.GetOneNoteInfoFromDatabaseUseCase
@@ -20,14 +16,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class NoteViewModel @Inject constructor() : ViewModel() {
-
-    private val instanceRep = DaggerAppComponent.builder().build().getDatabaseRepository()
-    private val deleteNoteInfoFromDatabaseUseCase = DeleteNoteInfoFromDatabaseUseCase(instanceRep)
-    private val getNoteInfoFromDatabaseUseCase = GetListNoteInfoFromDatabaseUseCase(instanceRep)
-    private val insertNoteInfoFromDatabaseUseCase = InsertNoteInfoFromDatabaseUseCase(instanceRep)
-    private val getOneNoteInfoFromDatabaseUseCase = GetOneNoteInfoFromDatabaseUseCase(instanceRep)
-    private val updateNoteInfoFromDatabaseUseCase = UpdateNoteInfoFromDatabaseUseCase(instanceRep)
+class NoteViewModel @Inject constructor(
+    private val deleteNoteInfoFromDatabaseUseCase: DeleteNoteInfoFromDatabaseUseCase,
+    getNoteInfoFromDatabaseUseCase: GetListNoteInfoFromDatabaseUseCase,
+    private val insertNoteInfoFromDatabaseUseCase: InsertNoteInfoFromDatabaseUseCase,
+    private val getOneNoteInfoFromDatabaseUseCase: GetOneNoteInfoFromDatabaseUseCase,
+    private val updateNoteInfoFromDatabaseUseCase: UpdateNoteInfoFromDatabaseUseCase
+) : ViewModel() {
 
     /**
      * Получение списка заметок из базы

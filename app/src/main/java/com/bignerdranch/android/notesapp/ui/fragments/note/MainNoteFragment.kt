@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -41,8 +40,6 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainNotesBinding.inflate(layoutInflater, container, false)
-        noteViewModel = ViewModelProvider(this)[NoteViewModel::class.java]
-
         recycler = binding.recyclerView
         recycler.layoutManager = LinearLayoutManager(context)
 

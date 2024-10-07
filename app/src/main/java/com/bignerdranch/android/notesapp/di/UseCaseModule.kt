@@ -8,7 +8,10 @@ import javax.inject.Singleton
 
 @Module
 abstract class UseCaseModule {
+    /**
+     * //Создаём для Dagger 2 экземпляр класса DatabaseRepositoryImpl
+     */
     @Binds
     @Singleton
-   abstract fun provideDatabaseRepository(repository: DatabaseRepositoryImpl): DatabaseRepository
+    abstract fun provideDatabaseRepository(repository: DatabaseRepositoryImpl): DatabaseRepository
 }

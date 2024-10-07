@@ -22,10 +22,11 @@ import com.bignerdranch.android.notesapp.utils.UtilsApp
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
-class MainActivity: AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     private lateinit var configuration: AppBarConfiguration
     private lateinit var navController: NavController
     private lateinit var bindingActivityMainBinding: ActivityMainBinding
+
     @Inject
     lateinit var userViewModel: NotesAppSettingViewModel
 

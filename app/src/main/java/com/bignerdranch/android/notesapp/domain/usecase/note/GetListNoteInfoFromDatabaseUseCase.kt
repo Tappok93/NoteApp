@@ -2,7 +2,6 @@ package com.bignerdranch.android.notesapp.domain.usecase.note
 
 import androidx.lifecycle.LiveData
 import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.NoteEntity
-import com.bignerdranch.android.notesapp.data.repository.DatabaseRepositoryImpl
 import com.bignerdranch.android.notesapp.domain.interfaceDatabaseRepositiry.DatabaseRepository
 import javax.inject.Inject
 

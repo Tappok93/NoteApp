@@ -16,7 +16,6 @@ import com.bignerdranch.android.notesapp.ui.view_model.NoteViewModel
 import com.bignerdranch.android.notesapp.utils.UtilsApp
 import java.util.Date
 
-
 @Suppress("DEPRECATION")
 class AddNoteFragment : Fragment() {
     private lateinit var noteViewModel: NoteViewModel

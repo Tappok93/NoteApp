@@ -53,13 +53,13 @@ class SettingFragment : Fragment() {
                 )
 
                 // Обновление имени пользователя в ViewModel
-                (requireActivity() as MainActivity).userViewModel.
-                setUserName(binding.nameSettingET.text.toString())
+                (requireActivity() as MainActivity).userViewModel.setUserName(binding.nameSettingET.text.toString())
 
                 //Переход на главный фрагмент при обработке нажатия.
                 requireActivity().supportFragmentManager.popBackStack()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

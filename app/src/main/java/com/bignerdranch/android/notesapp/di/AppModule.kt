@@ -5,18 +5,15 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
+
 @Module
 class AppModule(private val application: Application) {
-
+    /**
+     * //Создаём для Dagger 2 экземпляр Context
+     */
     @Provides
     @Singleton
     fun provideContext(): Context {
         return application.applicationContext
     }
-
-//    @Provides
-//    @Singleton
-//    fun provideApplication(): Application {
-//        return application
-//    }
 }

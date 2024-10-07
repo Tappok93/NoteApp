@@ -15,7 +15,6 @@ import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.databinding.FragmentAddTasksBinding
 import com.bignerdranch.android.notesapp.ui.view_model.TaskViewModel
 
-
 @Suppress("DEPRECATION")
 class AddTaskFragment : Fragment() {
     private lateinit var taskViewModel: TaskViewModel

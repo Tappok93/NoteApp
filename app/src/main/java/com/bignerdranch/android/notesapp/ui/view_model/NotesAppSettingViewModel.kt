@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
-class NotesAppSettingViewModel @Inject constructor(): ViewModel() {
+class NotesAppSettingViewModel @Inject constructor() : ViewModel() {
     private val userNameLiveData = MutableLiveData<String>()
     val userName: LiveData<String> get() = userNameLiveData
 
