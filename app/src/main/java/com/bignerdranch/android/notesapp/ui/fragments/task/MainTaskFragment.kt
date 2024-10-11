@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.notesapp.MyApplication
@@ -16,6 +18,7 @@ import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.Task
 import com.bignerdranch.android.notesapp.databinding.FragmentMainTasksBinding
 import com.bignerdranch.android.notesapp.ui.adapter.TaskRecyclerViewAdapter
 import com.bignerdranch.android.notesapp.ui.view_model.TaskViewModel
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 
@@ -55,6 +58,10 @@ class MainTaskFragment : Fragment(), TaskRecyclerViewAdapter.InfoTaskItemClickLi
                 adapter.updateTaskListFromDB(it)
             }
         }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelper)
+        itemTouchHelper.attachToRecyclerView(recycler)
+
         return binding.root
     }
 
@@ -65,7 +72,15 @@ class MainTaskFragment : Fragment(), TaskRecyclerViewAdapter.InfoTaskItemClickLi
          * Нажатие кнопки [Добавить задачу]
          */
         binding.addTaskBTN.setOnClickListener {
-            findNavController().navigate(R.id.action_mainTasksFragment_to_addTasksFragment)
+            val navOptions = NavOptions.Builder()
+                .setEnterAnim(R.anim.slide_in_right)
+                .setExitAnim(R.anim.slide_out_left)
+                .build()
+            findNavController().navigate(
+                R.id.action_mainTasksFragment_to_addTasksFragment,
+                null,
+                navOptions
+            )
         }
 
         /**
@@ -101,4 +116,35 @@ class MainTaskFragment : Fragment(), TaskRecyclerViewAdapter.InfoTaskItemClickLi
         )
     }
 
+    // Реализация ItemTouchHelper для свайпа
+    private val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.adapterPosition
+            val taskToRemove = adapter.getTaskAtPosition(position)
+
+            // Удалите задачу из базы данных
+            taskViewModel.deleteTaskById(taskToRemove.id)
+
+            // Удалите элемент из адаптера
+            adapter.removeTaskAtPosition(position)
+
+            // Реализация Snackbar с возможностью отмены
+            val myBar = Snackbar.make(binding.root, "Задача удалена", Snackbar.LENGTH_LONG)
+            myBar.setAction("Отменить") {
+                taskViewModel.insertTask(taskToRemove)
+                adapter.addTaskAtPosition(position, taskToRemove)
+            }
+            myBar.show()
+
+        }
+    }
 }

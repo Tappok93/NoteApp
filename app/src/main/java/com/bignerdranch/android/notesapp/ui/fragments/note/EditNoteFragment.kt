@@ -1,5 +1,6 @@
 package com.bignerdranch.android.notesapp.ui.fragments.note
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -10,21 +11,29 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bignerdranch.android.notesapp.MyApplication
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.databinding.EditNoteFragmentBinding
 import com.bignerdranch.android.notesapp.ui.view_model.NoteViewModel
+import javax.inject.Inject
 
 @Suppress("DEPRECATION")
 class EditNoteFragment : Fragment() {
     private lateinit var binding: EditNoteFragmentBinding
-    private lateinit var noteViewModel: NoteViewModel
+
+    @Inject
+    lateinit var noteViewModel: NoteViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = EditNoteFragmentBinding.inflate(layoutInflater, container, false)
-        noteViewModel = ViewModelProvider(this)[NoteViewModel::class.java]
         setHasOptionsMenu(true)
 
         return binding.root

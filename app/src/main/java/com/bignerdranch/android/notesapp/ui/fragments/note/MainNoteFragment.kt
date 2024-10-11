@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -65,7 +66,12 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
          * Нажатие кнопки [Добавить заметку]
          */
         binding.addNoteBTN.setOnClickListener {
-            findNavController().navigate(R.id.action_mainNotesFragment_to_addNotesFragment)
+
+            val navOptions = NavOptions.Builder()
+                .setEnterAnim(R.anim.slide_in_right)
+                .setExitAnim(R.anim.slide_out_left)
+                .build()
+            findNavController().navigate(R.id.action_mainNotesFragment_to_addNotesFragment, null, navOptions)
         }
 
         /**

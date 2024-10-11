@@ -1,10 +1,12 @@
 package com.bignerdranch.android.notesapp.ui.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.data.storage.room_database.entitys.TaskEntity
@@ -44,14 +46,27 @@ class TaskRecyclerViewAdapter(private var myListTask: List<TaskEntity>) :
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val bindingAdapter = ElementRecyclerTaskBinding.bind(itemView)
 
+        @SuppressLint("ResourceAsColor")
         fun setData(baseTask: TaskEntity, listener: InfoTaskItemClickListener?) {
             bindingAdapter.textTaskElement.text = baseTask.nameTask
 
             if (baseTask.checkTask) {
                 bindingAdapter.textTaskElement.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                bindingAdapter.constraintElement.setBackgroundColor(
+                    ContextCompat.getColor(
+                        bindingAdapter.constraintElement.context,
+                        R.color.radio_button_checked_color
+                    )
+                )
                 bindingAdapter.radioTaskBTN.isChecked = true
             } else {
                 bindingAdapter.textTaskElement.paintFlags = 0
+                bindingAdapter.constraintElement.setBackgroundColor(
+                    ContextCompat.getColor(
+                        bindingAdapter.constraintElement.context,
+                        R.color.radio_button_unchecked_color
+                    )
+                )
                 bindingAdapter.radioTaskBTN.isChecked = false
             }
 
@@ -109,5 +124,31 @@ class TaskRecyclerViewAdapter(private var myListTask: List<TaskEntity>) :
     fun updateTaskListFromDB(listItem: List<TaskEntity>) {
         updateList(listItem)
         startListTask = myListTask.map { it.copy() }.toMutableList()
+    }
+
+    /**
+     * Метод для получения задачи по позиции
+     */
+    fun getTaskAtPosition(position: Int): TaskEntity {
+        return myListTask[position]
+    }
+
+    /**
+     * Метод для удаления задачи по позиции
+     */
+    fun removeTaskAtPosition(position: Int) {
+        val updatedList = myListTask.toMutableList()
+        updatedList.removeAt(position)
+        updateList(updatedList)
+        notifyItemRemoved(position)
+    }
+
+    /**
+     * Метод добавления задачи в список
+     */
+    fun addTaskAtPosition(position: Int, task: TaskEntity) {
+        val updatedList = myListTask.toMutableList()
+        updatedList.add(position, task)
+        updateList(updatedList)
     }
 }

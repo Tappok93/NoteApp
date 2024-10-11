@@ -51,10 +51,6 @@ dependencies {
     val room_version = "2.6.1"
     val dagger_version = "2.52"
 
-    //Dagger Hilt
-//    implementation ("com.google.dagger:hilt-android:2.52")
-//    kapt ("com.google.dagger:hilt-compiler:2.52")
-
     //Dagger 2
     implementation ("com.google.dagger:dagger:$dagger_version")
     annotationProcessor ("com.google.dagger:dagger-compiler:$dagger_version")
@@ -80,6 +76,7 @@ dependencies {
     implementation ("com.google.android.material:material:1.9.0")
 
     implementation ("androidx.compose.runtime:runtime:1.5.1")
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
 
 
     implementation(libs.androidx.core.ktx)

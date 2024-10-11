@@ -1,5 +1,6 @@
 package com.bignerdranch.android.notesapp.ui.fragments.task
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,24 +12,31 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bignerdranch.android.notesapp.MyApplication
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.databinding.FragmentAddTasksBinding
 import com.bignerdranch.android.notesapp.ui.view_model.TaskViewModel
+import javax.inject.Inject
 
 @Suppress("DEPRECATION")
 class AddTaskFragment : Fragment() {
-    private lateinit var taskViewModel: TaskViewModel
     private lateinit var binding: FragmentAddTasksBinding
+
+    @Inject
+    lateinit var taskViewModel: TaskViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddTasksBinding.inflate(layoutInflater, container, false)
-        taskViewModel = ViewModelProvider(this)[TaskViewModel::class.java]
         setHasOptionsMenu(true)
         return binding.root
-
     }
 
     /**
