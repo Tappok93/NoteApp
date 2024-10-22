@@ -9,6 +9,9 @@ class NotesAppSettingViewModel @Inject constructor() : ViewModel() {
     private val userNameLiveData = MutableLiveData<String>()
     val userName: LiveData<String> get() = userNameLiveData
 
+    /**
+     * Метод установки имени пользователя в настройках
+     */
     fun setUserName(name: String) {
         userNameLiveData.value = name
     }

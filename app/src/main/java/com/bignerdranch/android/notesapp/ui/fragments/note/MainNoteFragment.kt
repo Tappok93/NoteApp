@@ -24,6 +24,7 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
     private lateinit var binding: FragmentMainNotesBinding
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: NoteRecyclerViewAdapter
+
     @Inject
     lateinit var noteViewModel: NoteViewModel
     private val bundle = Bundle()
@@ -71,7 +72,11 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
                 .setEnterAnim(R.anim.slide_in_right)
                 .setExitAnim(R.anim.slide_out_left)
                 .build()
-            findNavController().navigate(R.id.action_mainNotesFragment_to_addNotesFragment, null, navOptions)
+            findNavController().navigate(
+                R.id.action_mainNotesFragment_to_addNotesFragment,
+                null,
+                navOptions
+            )
         }
 
         /**

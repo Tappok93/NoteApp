@@ -81,6 +81,7 @@ class EditTaskFragment : Fragment() {
                 requireActivity().supportFragmentManager.popBackStack()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

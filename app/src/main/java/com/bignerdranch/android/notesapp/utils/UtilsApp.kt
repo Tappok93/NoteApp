@@ -86,12 +86,5 @@ class UtilsApp {
             val dateFormat = SimpleDateFormat("d MMMM yyyy '|' 'время' HH:mm:ss", Locale("ru"))
             return dateFormat.format(date)
         }
-
-        /**
-         * Метод для скрытия\отображения нижнего бара BottomNavigationView
-         */
-        fun bottomNavVisibility(bottomNavView: BottomNavigationView?, visibility: Int) {
-            bottomNavView?.visibility = visibility
-        }
     }
 }

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".ui.fragments.task.MainTaskFragment"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    tools:context=".ui.fragments.task.MainTaskFragment">
 
 
     <SearchView

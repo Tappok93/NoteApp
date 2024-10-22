@@ -2,7 +2,6 @@ package com.bignerdranch.android.notesapp.data.storage.shared_preferences
 
 import android.content.Context
 
-
 class PreferencesBase {
 
     companion object {

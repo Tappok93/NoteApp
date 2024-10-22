@@ -57,12 +57,6 @@ dependencies {
     kapt ("com.google.dagger:dagger-compiler:$dagger_version")
     implementation ("javax.inject:javax.inject:1")
 
-
-    //Push уведомления
-    implementation ("androidx.core:core-ktx:1.10.1")
-    implementation ("androidx.core:core:1.9.0")
-
-
     //Room database
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
@@ -74,10 +68,14 @@ dependencies {
     implementation ("androidx.navigation:navigation-fragment-ktx:2.6.0")
     implementation ("androidx.navigation:navigation-ui-ktx:2.6.0")
     implementation ("com.google.android.material:material:1.9.0")
-
     implementation ("androidx.compose.runtime:runtime:1.5.1")
+
+    //RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.0")
 
+    //Push уведомления
+    implementation ("androidx.core:core-ktx:1.10.1")
+    implementation ("androidx.core:core:1.9.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
