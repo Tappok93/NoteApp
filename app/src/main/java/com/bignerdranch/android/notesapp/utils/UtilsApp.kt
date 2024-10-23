@@ -2,7 +2,6 @@ package com.bignerdranch.android.notesapp.utils
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -14,11 +13,11 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bignerdranch.android.notesapp.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 class UtilsApp {
     companion object {
 
@@ -43,6 +42,7 @@ class UtilsApp {
         /**
          * Создаём Push уведомление
          */
+        @SuppressLint("InlinedApi")
         fun sendPushInfo(fragment: Fragment, textPushHeader: String, textPushBody: String) {
             val context = fragment.requireContext()
 

@@ -51,14 +51,13 @@ class TaskViewModel @Inject constructor(
      * Создание объекта задача
      */
     fun createTaskObj(nameTask: String): TaskEntity {
-        val taskObj = TaskEntity(id = 0, nameTask = nameTask, checkTask = false)
-        return taskObj
+        return TaskEntity(id = 0, nameTask = nameTask, checkTask = false)
     }
 
     /**
      * Получение объекта заметка по Id
      */
-    suspend fun getObjectTaskById(id: Int): TaskEntity? {
+    private suspend fun getObjectTaskById(id: Int): TaskEntity? {
         return withContext(Dispatchers.IO) {
             getOneTaskInfoFromDatabaseUseCase.getOneTaskFromDatabaseUseCase(id = id)
         }

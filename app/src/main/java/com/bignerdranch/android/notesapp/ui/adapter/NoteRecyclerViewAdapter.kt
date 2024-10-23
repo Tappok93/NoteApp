@@ -1,5 +1,6 @@
 package com.bignerdranch.android.notesapp.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,6 +82,7 @@ class NoteRecyclerViewAdapter(private var myListNote: List<NoteEntity>) :
     /**
      * Обновление списка
      */
+    @SuppressLint("NotifyDataSetChanged")
     private fun updateList(listItem: List<NoteEntity>) {
         myListNote = listItem
         notifyDataSetChanged()

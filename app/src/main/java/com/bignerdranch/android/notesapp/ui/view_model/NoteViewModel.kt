@@ -41,9 +41,7 @@ class NoteViewModel @Inject constructor(
      * Создание объекта заметка
      */
     fun createNoteObj(nameNote: String, nameHeaderNote: String, date: String): NoteEntity {
-        val noteObj =
-            NoteEntity(id = 0, nameNote = nameNote, nameHeaderNote = nameHeaderNote, date = date)
-        return noteObj
+        return NoteEntity(id = 0, nameNote = nameNote, nameHeaderNote = nameHeaderNote, date = date)
     }
 
     /**

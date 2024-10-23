@@ -1,7 +1,6 @@
 package com.bignerdranch.android.notesapp.ui.adapter
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -75,11 +74,7 @@ class TaskRecyclerViewAdapter(private var myListTask: List<TaskEntity>) :
             }
 
             bindingAdapter.radioTaskBTN.setOnClickListener {
-                if (baseTask.checkTask) {
-                    baseTask.checkTask = false
-                } else {
-                    baseTask.checkTask = true
-                }
+                baseTask.checkTask = !baseTask.checkTask
                 listener?.editElementClickListener(baseTask)
             }
         }

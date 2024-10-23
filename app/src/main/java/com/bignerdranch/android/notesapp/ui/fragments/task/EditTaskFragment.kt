@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.bignerdranch.android.notesapp.MyApplication
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.databinding.EditTaskFragmentBinding
@@ -50,7 +49,7 @@ class EditTaskFragment : Fragment() {
         }
 
         /**
-         * Обработка кнопки [Сохранить]
+         * Обработка кнопки Сохранить
          */
         binding.saveEditTaskBTN.setOnClickListener {
             taskViewModel.updateObjectTaskByIdUseCase(
@@ -73,6 +72,7 @@ class EditTaskFragment : Fragment() {
     /**
      * Удаление задачи за базы данных
      */
+
     @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -81,7 +81,6 @@ class EditTaskFragment : Fragment() {
                 requireActivity().supportFragmentManager.popBackStack()
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }

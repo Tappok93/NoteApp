@@ -22,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 
+@Suppress("DEPRECATION")
 class MainTaskFragment : Fragment(), TaskRecyclerViewAdapter.InfoTaskItemClickListener {
     private lateinit var binding: FragmentMainTasksBinding
     private lateinit var recycler: RecyclerView
@@ -144,7 +145,6 @@ class MainTaskFragment : Fragment(), TaskRecyclerViewAdapter.InfoTaskItemClickLi
                 adapter.addTaskAtPosition(position, taskToRemove)
             }
             myBar.show()
-
         }
     }
 }

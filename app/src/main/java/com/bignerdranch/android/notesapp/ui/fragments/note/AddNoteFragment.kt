@@ -10,7 +10,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.bignerdranch.android.notesapp.MyApplication
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.databinding.FragmentAddNotesBinding
@@ -49,6 +48,9 @@ class AddNoteFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    /**
+     * Обработка сохранения добавленной заметки
+     */
     @Deprecated("Deprecated in Java")
     @SuppressLint("NewApi")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

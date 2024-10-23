@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.bignerdranch.android.notesapp.MyApplication
 import com.bignerdranch.android.notesapp.R
 import com.bignerdranch.android.notesapp.databinding.EditNoteFragmentBinding
@@ -53,7 +52,7 @@ class EditNoteFragment : Fragment() {
         }
 
         /**
-         * Обработка кнопки [Сохранить]
+         * Обработка кнопки Сохранить
          */
         binding.saveEditNoteBTN.setOnClickListener {
             noteViewModel.updateObjectNoteByIdUseCase(
@@ -89,7 +88,7 @@ class EditNoteFragment : Fragment() {
     }
 
     /**
-     * Логика удаления заметки
+     * Метод удаления заметки
      */
     private fun deleteNoteDialog(id: Int) {
         AlertDialog.Builder(requireContext())
