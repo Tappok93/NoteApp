@@ -21,7 +21,6 @@ import com.bignerdranch.android.notesapp.ui.view_model.NotesAppSettingViewModel
 import com.bignerdranch.android.notesapp.utils.UtilsApp
 import javax.inject.Inject
 
-@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     private lateinit var configuration: AppBarConfiguration
     private lateinit var navController: NavController
@@ -75,9 +74,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Наблюдение за изменениями имени пользователя
-        userViewModel.userName.observe(this, Observer { name ->
+        userViewModel.userName.observe(this) { name ->
             updateUI(name)
-        })
+        }
 
         // Установка начального имени пользователя
         PreferencesBase.getUserName(this)?.let { userViewModel.setUserName(it) }
