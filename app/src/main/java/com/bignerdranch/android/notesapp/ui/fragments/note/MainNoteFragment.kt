@@ -72,6 +72,7 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
                 .setEnterAnim(R.anim.slide_in_right)
                 .setExitAnim(R.anim.slide_out_left)
                 .setEnterAnim(R.anim.slide_in_right)
+                .setEnterAnim(androidx.appcompat.R.anim.abc_fade_in)
                 .build()
             findNavController().navigate(
                 R.id.action_mainNotesFragment_to_addNotesFragment,
