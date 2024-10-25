@@ -71,6 +71,7 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
             val navOptions = NavOptions.Builder()
                 .setEnterAnim(R.anim.slide_in_right)
                 .setExitAnim(R.anim.slide_out_left)
+                .setEnterAnim(R.anim.slide_in_right)
                 .build()
             findNavController().navigate(
                 R.id.action_mainNotesFragment_to_addNotesFragment,
