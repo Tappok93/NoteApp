@@ -68,14 +68,14 @@ class MainNoteFragment : Fragment(), NoteRecyclerViewAdapter.InfoNoteItemClickLi
          */
         binding.addNoteBTN.setOnClickListener {
 
-            val navOptions = NavOptions.Builder()
-                .setEnterAnim(R.anim.slide_in_right)
-                .setExitAnim(R.anim.slide_out_left)
-                .build()
+//            val navOptions = NavOptions.Builder()
+//                .setEnterAnim(R.anim.slide_in_right)
+//                .setExitAnim(R.anim.slide_out_left)
+//                .build()
             findNavController().navigate(
                 R.id.action_mainNotesFragment_to_addNotesFragment,
                 null,
-                navOptions
+//                navOptions
             )
         }
 
